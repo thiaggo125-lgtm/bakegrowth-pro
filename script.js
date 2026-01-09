@@ -1,7 +1,7 @@
 // ===== ABAS =====
 function showTab(id) {
   document.querySelectorAll('.tab').forEach(tab => {
-    tab.classList.remove('active'));
+    tab.classList.remove('active');
   });
   document.getElementById(id).classList.add('active');
 }
@@ -11,94 +11,68 @@ function randomItem(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
-const diaSemana = new Date().getDay();
-
 // ===== BASE IA =====
-const reels = {
-  alcance: [
-    {
-      ideia: "Transformação de bolo simples em decorado",
-      roteiro: "1️⃣ bolo simples → 2️⃣ decoração → 3️⃣ resultado final",
-      dica: "Use música em alta e corte rápido",
-      cta: "Você prefere antes ou depois?"
-    },
-    {
-      ideia: "Erro comum na confeitaria",
-      roteiro: "Mostre o erro → explique → corrija",
-      dica: "Fale olhando para a câmera",
-      cta: "Já aconteceu com você?"
-    },
-    {
-      ideia: "Detalhe satisfatório (ASMR)",
-      roteiro: "Close no acabamento ou corte",
-      dica: "Capriche no áudio",
-      cta: "Curte vídeos assim?"
-    }
-  ]
-};
-
-const stories = [
+const reels = [
   {
-    seq: [
-      "Mostre o bolo do dia",
-      "Pergunte o sabor favorito",
-      "Mostre detalhe do acabamento"
-    ],
-    sticker: "Enquete",
-    objetivo: "Resposta"
+    ideia: "Transformação de bolo simples em decorado",
+    roteiro: "Bolo simples → decoração → resultado final",
+    dica: "Use música em alta",
+    cta: "Você prefere antes ou depois?"
   },
   {
-    seq: [
-      "Bastidores da produção",
-      "Você trabalhando",
-      "Resultado final"
-    ],
-    sticker: "Pergunta",
-    objetivo: "Conexão"
+    ideia: "Erro comum na confeitaria",
+    roteiro: "Mostre o erro → explique → corrija",
+    dica: "Fale olhando para a câmera",
+    cta: "Já aconteceu com você?"
+  },
+  {
+    ideia: "Detalhe satisfatório (ASMR)",
+    roteiro: "Close no acabamento ou corte",
+    dica: "Capriche no áudio",
+    cta: "Curte vídeos assim?"
   }
 ];
 
-// ===== HOJE =====
+const stories = [
+  [
+    "Mostre o bolo do dia",
+    "Pergunte o sabor favorito",
+    "Mostre detalhe do acabamento"
+  ],
+  [
+    "Bastidores da produção",
+    "Você trabalhando",
+    "Resultado final"
+  ]
+];
+
+// ===== FUNÇÕES =====
 function gerarPost() {
-  const formatos = ["Reel", "Story"];
-  const formato = randomItem(formatos);
-
-  let texto = `📅 Hoje é dia de ${formato}\n🎯 Objetivo: ganhar seguidores\n\n`;
-
-  if (formato === "Reel") {
-    const r = randomItem(reels.alcance);
-    texto += `🎥 Ideia: ${r.ideia}\n🎬 Roteiro: ${r.roteiro}\n📢 CTA: ${r.cta}`;
-  } else {
-    const s = randomItem(stories);
-    texto += `📲 Sequência de Stories:\n- ${s.seq.join("\n- ")}\n🎯 Objetivo: ${s.objetivo}`;
-  }
-
-  document.getElementById("todayPost").innerText = texto;
+  const r = randomItem(reels);
+  document.getElementById("todayPost").innerText =
+    `🎯 REEL PARA GANHAR SEGUIDORES\n\nIdeia: ${r.ideia}\nRoteiro: ${r.roteiro}\nCTA: ${r.cta}`;
 }
 
-// ===== REELS =====
-function gerarReel() {
-  const r = randomItem(reels.alcance);
-  document.getElementById("reelIdea").innerText =
-    `🎥 REEL PARA ALCANCE\n\nIdeia: ${r.ideia}\n\nRoteiro:\n${r.roteiro}\n\n📌 Dica: ${r.dica}\n\n📢 CTA: ${r.cta}`;
-}
-
-// ===== STORIES =====
 function gerarStory() {
   const s = randomItem(stories);
   document.getElementById("story").innerText =
-    `📲 STORIES PARA ENGAJAMENTO\n\n${s.seq.map((x,i)=>`Story ${i+1}: ${x}`).join("\n")}\n\nSticker: ${s.sticker}`;
+    s.map((x, i) => `Story ${i + 1}: ${x}`).join("\n");
+}
+
+function gerarReel() {
+  const r = randomItem(reels);
+  document.getElementById("reelIdea").innerText =
+    `🎥 REEL\n\nIdeia: ${r.ideia}\nRoteiro: ${r.roteiro}\nDica: ${r.dica}\nCTA: ${r.cta}`;
 }
 
 function gerarStoryPro() {
   gerarStory();
 }
 
-// ===== PRO =====
 function gerarPro() {
-  const r = randomItem(reels.alcance);
+  const r = randomItem(reels);
   document.getElementById("proText").innerText =
-    `👑 CONTEÚDO DE AUTORIDADE\n\n${r.ideia}\n\nMostre processo + qualidade + segurança no que faz.`;
+    `👑 CONTEÚDO PRO\n\n${r.ideia}\nMostre autoridade e processo.`;
 }
 
 // ===== CALENDÁRIO =====
