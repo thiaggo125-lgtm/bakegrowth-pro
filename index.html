@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="style.css">
 </head>
 
-  <body>
+<body>
 
 <nav class="tabs">
   <button onclick="showTab('hoje')">🏠 Hoje</button>
@@ -20,6 +20,8 @@
 </nav>
 
 <main>
+
+  <!-- HOJE -->
   <section id="hoje" class="tab active">
     <div class="card">
       <h2>📌 O que postar hoje</h2>
@@ -34,6 +36,7 @@
     </div>
   </section>
 
+  <!-- CALENDÁRIO -->
   <section id="calendario" class="tab">
     <div class="card">
       <h2>📅 Calendário semanal</h2>
@@ -41,6 +44,7 @@
     </div>
   </section>
 
+  <!-- REELS -->
   <section id="reels" class="tab">
     <div class="card">
       <h2>🎥 Reels de alto engajamento</h2>
@@ -49,6 +53,7 @@
     </div>
   </section>
 
+  <!-- STORIES -->
   <section id="stories" class="tab">
     <div class="card">
       <h2>📲 Stories interativos</h2>
@@ -57,21 +62,19 @@
     </div>
   </section>
 
+  <!-- PRO -->
   <section id="pro" class="tab">
     <div class="card">
-      <h2>
-<section id="pro" class="tab">
-  <div class="card">
-    <h2>💎 Modo Pro</h2>
-    <p id="proText"></p>
-    <button onclick="gerarPro()">Gerar conteúdo Pro</button>
-  </div>
-</section>
+      <h2>💎 Modo Pro</h2>
+      <p id="proText"></p>
+      <button onclick="gerarPro()">Gerar conteúdo Pro</button>
+    </div>
+  </section>
 
 </main>
 
-<!-- 🔴 É AQUI QUE ENTRA O SCRIPT 🔴 -->
+<!-- JS (SEMPRE NO FINAL) -->
 <script src="script.js"></script>
 
 </body>
-    </html>
+                                                 </html>
