@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>BakeGrowth IA Pro</title>
+<title>BakeGrowth IA Pro 2.0</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 body { font-family: Arial,sans-serif; background:#111; color:#fff; margin:0; }
@@ -31,7 +31,6 @@ strong { color:#ff4d6d; }
 </nav>
 
 <main>
-<!-- HOJE -->
 <section id="hoje" class="tab active">
 <div class="card">
 <h2>📌 Ideia de post hoje</h2>
@@ -40,7 +39,6 @@ strong { color:#ff4d6d; }
 </div>
 </section>
 
-<!-- REELS -->
 <section id="reels" class="tab">
 <div class="card">
 <h2>🎥 Reel de alto engajamento</h2>
@@ -49,7 +47,6 @@ strong { color:#ff4d6d; }
 </div>
 </section>
 
-<!-- STORIES -->
 <section id="stories" class="tab">
 <div class="card">
 <h2>📲 Story interativo</h2>
@@ -58,7 +55,6 @@ strong { color:#ff4d6d; }
 </div>
 </section>
 
-<!-- CALENDÁRIO -->
 <section id="calendario" class="tab">
 <div class="card">
 <h2>📅 Calendário semanal sugerido</h2>
@@ -67,7 +63,6 @@ strong { color:#ff4d6d; }
 </div>
 </section>
 
-<!-- ANÁLISE IA -->
 <section id="pro" class="tab">
 <div class="card">
 <h2>📊 Análise do Perfil Instagram - IA</h2>
@@ -122,32 +117,38 @@ list.appendChild(li);
 }
 atualizarHistorico();
 
-// Funções de conteúdo inteligente
+// Funções de conteúdo inteligente com horários e hashtags
 function gerarHoje(){
 const formatos=["Reel","Story","Foto"];
 const objetivos=["Engajamento","Vendas","Autoridade"];
 const ideias=["Antes e depois do bolo","Detalhe do acabamento em close","Corte do bolo em câmera lenta","Cliente retirando o pedido","Bastidores da produção"];
 const roteiros=["Mostre o bolo simples → transição → bolo final","Close no acabamento com música suave","Processo acelerado do preparo","Reação do cliente ao ver o bolo","Corte lento mostrando recheio"];
 const ctas=["Qual sabor você escolheria?","Comenta 🍰 se gostou","Chama no direct pra encomendar","Salva esse post","Marca alguém que ama doce"];
-const hashtags=["#confeitaria","#bolosartesanais","#doces","#cake","#sweet","#bolo","#bake","#cakeporn","#receita","#decoracao"];
+const hashtags={
+"Reel":["#reel","#confeitaria","#bolo","#doces","#cake","#cakevideo","#decoracao","#bake","#sweet","#boloartesanal"],
+"Story":["#story","#bastidores","#cake","#doces","#sweet","#confeitaria","#bolo","#cakevideo","#receita","#decoracao"],
+"Foto":["#foto","#bolo","#doces","#cake","#confeitaria","#sweet","#cakeporn","#decoracao","#bake","#receita"]
+};
 
 const r=arr=>arr[Math.floor(Math.random()*arr.length)];
-const ideia=`Formato: ${r(formatos)}
+let formato=r(formatos);
+let ideia=`Formato: ${formato}
 Objetivo: ${r(objetivos)}
 Ideia: ${r(ideias)}
 Roteiro: ${r(roteiros)}
 CTA: ${r(ctas)}
-Hashtags: ${r(hashtags)} ${r(hashtags)} ${r(hashtags)}`;
+Hashtags: ${hashtags[formato].sort(()=>0.5-Math.random()).slice(0,5).join(" ")}`;
+
 document.getElementById("todayPost").innerText=ideia;
+document.getElementById("reelIdea").innerText=ideia;
+document.getElementById("storyIdea").innerText=ideia;
+
 historico.push(ideia);
 localStorage.setItem("historicoBake",JSON.stringify(historico));
 atualizarHistorico();
 }
 
-function gerarReel(){ gerarHoje(); document.getElementById("reelIdea").innerText=document.getElementById("todayPost").innerText; }
-function gerarStory(){ gerarHoje(); document.getElementById("storyIdea").innerText=document.getElementById("todayPost").innerText; }
-
-// Simulação de análise IA com perfis de referência e hashtags
+// Simulação de análise IA
 function analisarPerfilIA(){
 const username=document.getElementById("username").value || "@meuperfil";
 const freq=Number(document.getElementById("frequencia").value) || 0;
@@ -171,14 +172,15 @@ for(let i=0;i<7;i++){
 let tipo="Foto";
 if(i%2==0 && reels>0){ tipo="Reel"; }
 else if(i%3==0 && stories>0){ tipo="Story"; }
-calendario.push(`${dias[i]}: ${tipo} (9h)`); 
+let hora=["9h","12h","15h","18h","20h"][Math.floor(Math.random()*5)];
+calendario.push(`${dias[i]}: ${tipo} às ${hora}`); 
 }
 document.getElementById("calendarList").innerHTML=calendario.map(c=>`<li>${c}</li>`).join("");
 
 let inspiracao="";
 if(refs.length>0){ inspiracao=`Perfis para se inspirar: ${refs.join(", ")}`; }
 
-let hashtags=["#confeitaria","#bolosartesanais","#doces","#cake","#sweet","#bolo","#bake","#cakeporn","#receita","#decoracao"];
+const hashtags=["#confeitaria","#bolosartesanais","#doces","#cake","#sweet","#bolo","#bake","#cakeporn","#receita","#decoracao"];
 let hashtagsSugeridas=hashtags.sort(()=>0.5-Math.random()).slice(0,5).join(" ");
 
 document.getElementById("resultadoAnalise").innerHTML=
