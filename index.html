@@ -12,42 +12,53 @@
       color: #fff;
       margin: 0;
     }
+
     .tabs {
       display: flex;
-      gap: 5px;
+      gap: 6px;
       padding: 10px;
       background: #1e1e1e;
+      position: sticky;
+      top: 0;
     }
+
     .tabs button {
       flex: 1;
       padding: 10px;
       background: #333;
       color: #fff;
       border: none;
-      border-radius: 6px;
+      border-radius: 8px;
       cursor: pointer;
+      font-size: 14px;
     }
+
     .tab {
       display: none;
       padding: 15px;
     }
+
     .tab.active {
       display: block;
     }
+
     .card {
       background: #1c1c1c;
       padding: 15px;
       margin-bottom: 12px;
-      border-radius: 10px;
+      border-radius: 12px;
     }
-    button {
+
+    button.action {
       background: #ff4d6d;
-      color: #fff;
+      width: 100%;
+      margin-top: 10px;
+      font-size: 16px;
+      padding: 12px;
+      border-radius: 10px;
       border: none;
-      padding: 10px;
-      border-radius: 8px;
+      color: #fff;
       cursor: pointer;
-      margin-top: 8px;
     }
   </style>
 </head>
@@ -56,168 +67,102 @@
 
 <nav class="tabs">
   <button onclick="showTab('hoje')">🏠 Hoje</button>
+  <button onclick="showTab('calendario')">📅 Calendário</button>
   <button onclick="showTab('reels')">🎥 Reels</button>
   <button onclick="showTab('stories')">📲 Stories</button>
-  <button onclick="showTab('calendario')">📅 Calendário</button>
   <button onclick="showTab('pro')">💎 Pro</button>
 </nav>
 
 <main>
 
-<section id="hoje" class="tab active">
-  <div class="card">
-    <h2>📌 O que postar hoje</h2>
-    <p id="todayPost">Clique para gerar</p>
-    <button onclick="gerarHoje()">Gerar conteúdo</button>
-  </div>
-</section>
+  <!-- HOJE -->
+  <section id="hoje" class="tab active">
+    <div class="card">
+      <h2>📌 O que postar hoje</h2>
+      <p id="todayPost">Clique para gerar um conteúdo inteligente</p>
+      <button class="action" onclick="gerarHoje()">Gerar conteúdo</button>
+    </div>
+  </section>
 
-<section id="reels" class="tab">
-  <div class="card">
-    <h2>🎥 Reel estratégico</h2>
-    <p id="reelText">Clique para gerar</p>
-    <button onclick="gerarReel()">Gerar Reel</button>
-  </div>
-</section>
+  <!-- CALENDÁRIO -->
+  <section id="calendario" class="tab">
+    <div class="card">
+      <h2>📅 Calendário semanal</h2>
+      <ul>
+        <li>Segunda: Bastidores</li>
+        <li>Terça: Story com enquete</li>
+        <li>Quarta: Reel de processo</li>
+        <li>Quinta: Prova social</li>
+        <li>Sexta: Oferta</li>
+      </ul>
+    </div>
+  </section>
 
-<section id="stories" class="tab">
-  <div class="card">
-    <h2>📲 Sequência de Stories</h2>
-    <p id="storyText">Clique para gerar</p>
-    <button onclick="gerarStory()">Gerar Stories</button>
-  </div>
-</section>
+  <!-- REELS -->
+  <section id="reels" class="tab">
+    <div class="card">
+      <h2>🎥 Reel de alto engajamento</h2>
+      <p id="reelIdea">Clique para gerar</p>
+      <button class="action" onclick="gerarReel()">Gerar Reel</button>
+    </div>
+  </section>
 
-<section id="calendario" class="tab">
-  <div class="card">
-    <h2>📅 Calendário Inteligente</h2>
-    <ul id="calendar"></ul>
-    <button onclick="gerarCalendario()">Gerar semana</button>
-  </div>
-</section>
+  <!-- STORIES -->
+  <section id="stories" class="tab">
+    <div class="card">
+      <h2>📲 Stories interativos</h2>
+      <p id="storyIdea">Clique para gerar</p>
+      <button class="action" onclick="gerarStory()">Gerar Story</button>
+    </div>
+  </section>
 
-<section id="pro" class="tab">
-  <div class="card">
-    <h2>💎 Conteúdo Pro</h2>
-    <p id="proText">Clique para gerar</p>
-    <button onclick="gerarPro()">Gerar Pro</button>
-  </div>
-</section>
+  <!-- PRO -->
+  <section id="pro" class="tab">
+    <div class="card">
+      <h2>💎 Modo Pro (Estratégia)</h2>
+      <p id="proText">Clique para gerar estratégia avançada</p>
+      <button class="action" onclick="gerarPro()">Gerar Pro</button>
+    </div>
+  </section>
 
 </main>
 
 <script>
   function showTab(id) {
-    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(tab =>
+      tab.classList.remove('active')
+    );
     document.getElementById(id).classList.add('active');
   }
 
-  const hojeIdeias = [
-    "Foto do bolo finalizado + pergunta: qual sabor você escolheria?",
-    "Story mostrando o preparo + enquete",
-    "Reel com antes e depois do bolo",
-    "Detalhe do acabamento em close",
-    "Cliente retirando o pedido"
-  ];
-
-  const reels = [
-    "Antes e depois do bolo 🎂",
-    "Corte do bolo em câmera lenta",
-    "Montagem acelerada do bolo",
-    "Reação do cliente ao receber",
-    "Erro x acerto na confeitaria"
-  ];
-
-  const stories = [
-    "Story 1: Bastidores\nStory 2: Enquete\nStory 3: CTA pro direct",
-    "Story 1: Massa\nStory 2: Recheio\nStory 3: Final",
-    "Story 1: Pergunta\nStory 2: Resposta\nStory 3: Oferta",
-    "Story 1: Produção\nStory 2: Resultado\nStory 3: Feedback"
-  ];
-
-  const pro = [
-    "Explique porque seu bolo é diferente",
-    "Mostre seu processo profissional",
-    "Fale da qualidade dos ingredientes",
-    "Conte sua história na confeitaria"
-  ];
-
-  function random(arr) {
+  function r(arr) {
     return arr[Math.floor(Math.random() * arr.length)];
-  }
-
-  function gerarHoje() {
-    document.getElementById("todayPost").innerText = random(hojeIdeias);
-  }
-
-  function gerarReel() {
-    document.getElementById("reelText").innerText = random(reels);
-  }
-
-  function gerarStory() {
-    document.getElementById("storyText").innerText = random(stories);
-  }
-
-  function gerarPro() {
-    document.getElementById("proText").innerText = random(pro);
-  }
-
-  function gerarCalendario() {
-    const dias = [
-      "Segunda: Story bastidores",
-      "Terça: Foto do bolo",
-      "Quarta: Reel",
-      "Quinta: Story interativo",
-      "Sexta: Oferta",
-      "Sábado: Depoimento",
-      "Domingo: Repost"
-    ];
-    const ul = document.getElementById("calendar");
-    ul.innerHTML = "";
-    dias.forEach(d => {
-      const li = document.createElement("li");
-      li.innerText = d;
-      ul.appendChild(li);
-    });
-  }
-</script>
-<script>
-  function showTab(id) {
-    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
   }
 
   function gerarHoje() {
     const formatos = ["Reel", "Story", "Foto"];
     const objetivos = ["Engajamento", "Vendas", "Autoridade"];
-
     const ideias = [
-      "Antes e depois do bolo",
       "Detalhe do acabamento em close",
+      "Antes e depois do bolo",
       "Bastidores da produção",
-      "Cliente retirando o pedido",
-      "Corte do bolo em câmera lenta"
+      "Corte do bolo mostrando recheio",
+      "Cliente retirando o pedido"
     ];
-
     const roteiros = [
-      "Mostre o bolo simples → transição → bolo final",
-      "Close no acabamento com música suave",
-      "Processo acelerado do preparo",
-      "Reação do cliente ao ver o bolo",
-      "Corte lento mostrando recheio"
+      "Close com música suave",
+      "Transição rápida do antes/depois",
+      "Processo acelerado",
+      "Corte lento em câmera próxima",
+      "Reação do cliente"
     ];
-
     const ctas = [
-      "Qual sabor você escolheria?",
       "Comenta 🍰 se gostou",
-      "Chama no direct pra encomendar",
+      "Chama no direct",
       "Salva esse post",
-      "Marca alguém que ama doce"
+      "Marca alguém que ama doce",
+      "Qual sabor você escolheria?"
     ];
-
-    function r(arr) {
-      return arr[Math.floor(Math.random() * arr.length)];
-    }
 
     document.getElementById("todayPost").innerHTML = `
       <strong>Formato:</strong> ${r(formatos)}<br><br>
@@ -227,6 +172,22 @@
       <strong>CTA:</strong> ${r(ctas)}
     `;
   }
+
+  function gerarReel() {
+    document.getElementById("reelIdea").innerText =
+      "Mostre o processo + resultado final com música em alta";
+  }
+
+  function gerarStory() {
+    document.getElementById("storyIdea").innerText =
+      "Bastidores + enquete: qual sabor você prefere?";
+  }
+
+  function gerarPro() {
+    document.getElementById("proText").innerText =
+      "Post focado em autoridade + prova social + CTA direto para vendas";
+  }
 </script>
+
 </body>
   </html>
