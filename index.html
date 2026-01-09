@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>BakeGrowth IA Pro 4.1 - Simulação</title>
+<title>BakeGrowth IA Pro 4.2 - Simulação Visual</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 body { font-family: Arial,sans-serif; background:#111; color:#fff; margin:0; }
@@ -18,6 +18,9 @@ input, textarea, select { width:100%; padding:10px; margin-top:5px; margin-botto
 input::placeholder, textarea::placeholder { color:#ccc; }
 p, ul { line-height:1.4; }
 strong { color:#ff4d6d; }
+.mockup { background:#222; border:1px dashed #ff4d6d; padding:10px; margin-top:8px; border-radius:8px; }
+.mockup h4 { margin:5px 0; color:#ff6a85; font-size:14px; }
+.mockup p { font-size:13px; color:#ccc; }
 </style>
 </head>
 <body>
@@ -46,7 +49,7 @@ strong { color:#ff4d6d; }
 <section id="reels" class="tab">
 <div class="card">
 <h2>🎥 Reels - 3 sugestões</h2>
-<ul id="reelList"></ul>
+<div id="reelList"></div>
 <button onclick="gerarReels()">Gerar novas sugestões</button>
 </div>
 </section>
@@ -55,7 +58,7 @@ strong { color:#ff4d6d; }
 <section id="fotos" class="tab">
 <div class="card">
 <h2>📸 Fotos - 3 sugestões</h2>
-<ul id="fotoList"></ul>
+<div id="fotoList"></div>
 <button onclick="gerarFotos()">Gerar novas sugestões</button>
 </div>
 </section>
@@ -64,7 +67,7 @@ strong { color:#ff4d6d; }
 <section id="stories" class="tab">
 <div class="card">
 <h2>📲 Stories - 3 sugestões</h2>
-<ul id="storyList"></ul>
+<div id="storyList"></div>
 <button onclick="gerarStories()">Gerar novas sugestões</button>
 </div>
 </section>
@@ -108,7 +111,7 @@ strong { color:#ff4d6d; }
 <option value="combinado" selected>Combinado</option>
 </select>
 
-<button onclick="analisarPerfilIA()">Analisar Perfil + Calendário + Sugestões</button>
+<button onclick="analisarPerfilIA()">Analisar Perfil + Sugestões Visuais</button>
 
 <h3>Resultados da IA</h3>
 <p id="resultadoAnalise"></p>
@@ -127,7 +130,7 @@ document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
 document.getElementById(id).classList.add('active');
 }
 
-// Histórico de ideias
+// Histórico
 let historico = [];
 function atualizarHistorico(){
 const list=document.getElementById("historicoList");
@@ -139,7 +142,7 @@ list.appendChild(li);
 });
 }
 
-// Funções de conteúdo com 3 sugestões
+// Funções de conteúdo com mockups visuais
 function gerarHoje(){
 const formatos=["Reel","Story","Foto"];
 const objetivos=["Engajamento","Vendas","Autoridade"];
@@ -167,30 +170,39 @@ gerarFotos();
 gerarStories();
 }
 
-// Funções para 3 sugestões
+// Funções para 3 sugestões com mockup
 function gerarReels(){
-const list=document.getElementById("reelList");
-list.innerHTML="";
+const container=document.getElementById("reelList");
+container.innerHTML="";
 for(let i=0;i<3;i++){
-list.innerHTML+=`<li>${document.getElementById("todayPost").innerText}</li>`;
+let div=document.createElement("div");
+div.className="mockup";
+div.innerHTML=`<h4>Reel ${i+1}</h4><p>${document.getElementById("todayPost").innerText}</p>`;
+container.appendChild(div);
 }
 }
 function gerarFotos(){
-const list=document.getElementById("fotoList");
-list.innerHTML="";
+const container=document.getElementById("fotoList");
+container.innerHTML="";
 for(let i=0;i<3;i++){
-list.innerHTML+=`<li>${document.getElementById("todayPost").innerText}</li>`;
+let div=document.createElement("div");
+div.className="mockup";
+div.innerHTML=`<h4>Foto ${i+1}</h4><p>${document.getElementById("todayPost").innerText}</p>`;
+container.appendChild(div);
 }
 }
 function gerarStories(){
-const list=document.getElementById("storyList");
-list.innerHTML="";
+const container=document.getElementById("storyList");
+container.innerHTML="";
 for(let i=0;i<3;i++){
-list.innerHTML+=`<li>${document.getElementById("todayPost").innerText}</li>`;
+let div=document.createElement("div");
+div.className="mockup";
+div.innerHTML=`<h4>Story ${i+1}</h4><p>${document.getElementById("todayPost").innerText}</p>`;
+container.appendChild(div);
 }
 }
 
-// Análise IA simulada
+// Análise IA simulada + calendário
 function analisarPerfilIA(){
 const modo=document.getElementById("modoAnalise").value;
 const username=document.getElementById("username").value||"@meuperfil";
@@ -245,7 +257,7 @@ const texto=document.getElementById("calendarList").innerText;
 navigator.clipboard.writeText(texto).then(()=>alert("Calendário copiado!"));
 }
 
-// Auto-gerar tudo na abertura
+// Auto-gerar tudo ao abrir
 window.onload=function(){
 gerarHoje();
 analisarPerfilIA();
@@ -253,4 +265,4 @@ analisarPerfilIA();
 </script>
 
 </body>
-</html>
+  </html>
