@@ -1,229 +1,174 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>BakeGrowth Pro - Análise de Perfil</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #111;
-      color: #fff;
-      margin: 0;
-    }
-
-    .tabs {
-      display: flex;
-      gap: 6px;
-      padding: 10px;
-      background: #1a1a1a;
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
-
-    .tabs button {
-      flex: 1;
-      padding: 10px;
-      background: #222;
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-
-    .tabs button:hover { background: #ff4d6d; }
-
-    .tab { display: none; padding: 15px; }
-    .tab.active { display: block; }
-
-    .card {
-      background: #1c1c1c;
-      padding: 15px;
-      margin-bottom: 15px;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.5);
-      color: #fff;
-    }
-
-    button {
-      background: #ff4d6d;
-      color: #fff;
-      border: none;
-      padding: 12px;
-      border-radius: 10px;
-      cursor: pointer;
-      width: 100%;
-      font-size: 16px;
-      margin-top: 10px;
-      transition: 0.2s;
-    }
-
-    button:hover { background: #ff6a85; }
-
-    input, textarea, select {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      margin-bottom: 10px;
-      border-radius: 6px;
-      border: none;
-      background: #333;
-      color: #fff;
-    }
-
-    input::placeholder, textarea::placeholder { color: #ccc; }
-
-    p { line-height: 1.4; }
-    strong { color: #ff4d6d; }
-  </style>
+<meta charset="UTF-8">
+<title>BakeGrowth Pro Avançado</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body { font-family: Arial, sans-serif; background: #111; color: #fff; margin: 0; }
+.tabs { display: flex; gap:6px; padding: 10px; background: #1a1a1a; position: sticky; top: 0; z-index: 10; }
+.tabs button { flex:1; padding:10px; background:#222; color:#fff; border:none; border-radius:8px; cursor:pointer; transition:0.2s; }
+.tabs button:hover { background:#ff4d6d; }
+.tab { display:none; padding:15px; }
+.tab.active { display:block; }
+.card { background:#1c1c1c; padding:15px; margin-bottom:15px; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.5); color:#fff; }
+button { background:#ff4d6d; color:#fff; border:none; padding:12px; border-radius:10px; cursor:pointer; width:100%; font-size:16px; margin-top:10px; transition:0.2s; }
+button:hover { background:#ff6a85; }
+input, textarea, select { width:100%; padding:10px; margin-top:5px; margin-bottom:10px; border-radius:6px; border:none; background:#333; color:#fff; }
+input::placeholder, textarea::placeholder { color:#ccc; }
+p { line-height:1.4; }
+strong { color:#ff4d6d; }
+</style>
 </head>
-
 <body>
 
 <nav class="tabs">
-  <button onclick="showTab('hoje')">🏠 Hoje</button>
-  <button onclick="showTab('calendario')">📅 Calendário</button>
-  <button onclick="showTab('reels')">🎥 Reels</button>
-  <button onclick="showTab('stories')">📲 Stories</button>
-  <button onclick="showTab('pro')">📊 Análise Perfil</button>
+<button onclick="showTab('hoje')">🏠 Hoje</button>
+<button onclick="showTab('calendario')">📅 Calendário</button>
+<button onclick="showTab('reels')">🎥 Reels</button>
+<button onclick="showTab('stories')">📲 Stories</button>
+<button onclick="showTab('pro')">📊 Análise Perfil</button>
 </nav>
 
 <main>
-  <!-- HOJE -->
-  <section id="hoje" class="tab active">
-    <div class="card">
-      <h2>📌 Ideia de post hoje</h2>
-      <p id="todayPost">Clique no botão para gerar</p>
-      <button onclick="gerarHoje()">Gerar ideia completa</button>
-    </div>
-  </section>
+<!-- HOJE -->
+<section id="hoje" class="tab active">
+<div class="card">
+<h2>📌 Ideia de post hoje</h2>
+<p id="todayPost">Clique no botão para gerar</p>
+<button onclick="gerarHoje()">Gerar ideia completa</button>
+</div>
+</section>
 
-  <!-- CALENDÁRIO -->
-  <section id="calendario" class="tab">
-    <div class="card">
-      <h2>📅 Calendário semanal</h2>
-      <ul id="calendarList">
-        <li>Segunda: Bastidores</li>
-        <li>Terça: Story interativo</li>
-        <li>Quarta: Reel</li>
-        <li>Quinta: Depoimento</li>
-        <li>Sexta: Oferta</li>
-        <li>Sábado: Promoção</li>
-        <li>Domingo: Repost</li>
-      </ul>
-    </div>
-  </section>
+<!-- CALENDÁRIO -->
+<section id="calendario" class="tab">
+<div class="card">
+<h2>📅 Calendário personalizado</h2>
+<ul id="calendarList">
+<!-- Será preenchido automaticamente -->
+</ul>
+</div>
+</section>
 
-  <!-- REELS -->
-  <section id="reels" class="tab">
-    <div class="card">
-      <h2>🎥 Reel de alto engajamento</h2>
-      <p id="reelIdea">Clique no botão</p>
-      <button onclick="gerarReel()">Gerar Reel completo</button>
-    </div>
-  </section>
+<!-- REELS -->
+<section id="reels" class="tab">
+<div class="card">
+<h2>🎥 Reel de alto engajamento</h2>
+<p id="reelIdea">Clique no botão</p>
+<button onclick="gerarReel()">Gerar Reel completo</button>
+</div>
+</section>
 
-  <!-- STORIES -->
-  <section id="stories" class="tab">
-    <div class="card">
-      <h2>📲 Story interativo</h2>
-      <p id="storyIdea">Clique no botão</p>
-      <button onclick="gerarStory()">Gerar Story completo</button>
-    </div>
-  </section>
+<!-- STORIES -->
+<section id="stories" class="tab">
+<div class="card">
+<h2>📲 Story interativo</h2>
+<p id="storyIdea">Clique no botão</p>
+<button onclick="gerarStory()">Gerar Story completo</button>
+</div>
+</section>
 
-  <!-- ANÁLISE -->
-  <section id="pro" class="tab">
-    <div class="card">
-      <h2>📊 Análise do Perfil Instagram</h2>
+<!-- ANÁLISE -->
+<section id="pro" class="tab">
+<div class="card">
+<h2>📊 Análise do Perfil Instagram</h2>
 
-      <label>@Instagram:</label>
-      <input id="username" placeholder="Ex: @meuperfil">
+<label>@Instagram:</label>
+<input id="username" placeholder="Ex: @meuperfil">
 
-      <label>Número de posts por semana:</label>
-      <input id="frequencia" type="number" placeholder="Ex: 3">
+<label>Número de posts por semana:</label>
+<input id="frequencia" type="number" placeholder="Ex: 3">
 
-      <label>Número de Reels:</label>
-      <input id="reels" type="number" placeholder="Ex: 2">
+<label>Número de Reels:</label>
+<input id="reels" type="number" placeholder="Ex: 2">
 
-      <label>Número de Stories:</label>
-      <input id="storiesNum" type="number" placeholder="Ex: 5">
+<label>Número de Stories:</label>
+<input id="storiesNum" type="number" placeholder="Ex: 5">
 
-      <label>Posts de foto:</label>
-      <input id="fotos" type="number" placeholder="Ex: 3">
+<label>Posts de foto:</label>
+<input id="fotos" type="number" placeholder="Ex: 3">
 
-      <label>Média de engajamento (curtidas/comentários):</label>
-      <input id="engajamento" type="number" placeholder="Ex: 150">
+<label>Média de engajamento (curtidas/comentários):</label>
+<input id="engajamento" type="number" placeholder="Ex: 150">
 
-      <button onclick="analisarPerfilReal()">Analisar Perfil</button>
+<button onclick="analisarPerfilAvancado()">Analisar Perfil e Gerar Calendário</button>
 
-      <p id="resultadoAnalise"></p>
-    </div>
-  </section>
-
+<p id="resultadoAnalise"></p>
+</div>
+</section>
 </main>
 
 <script>
-  function showTab(id) {
-    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-  }
+function showTab(id){
+document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+document.getElementById(id).classList.add('active');
+}
 
-  // Funções IA simulada
-  function gerarHoje() {
-    const formatos = ["Reel","Story","Foto"];
-    const objetivos = ["Engajamento","Vendas","Autoridade"];
-    const ideias = ["Antes e depois do bolo","Detalhe do acabamento em close","Corte do bolo em câmera lenta","Cliente retirando o pedido","Bastidores da produção"];
-    const roteiros = ["Mostre o bolo simples → transição → bolo final","Close no acabamento com música suave","Processo acelerado do preparo","Reação do cliente ao ver o bolo","Corte lento mostrando recheio"];
-    const ctas = ["Qual sabor você escolheria?","Comenta 🍰 se gostou","Chama no direct pra encomendar","Salva esse post","Marca alguém que ama doce"];
-    const r = arr => arr[Math.floor(Math.random()*arr.length)];
-    document.getElementById("todayPost").innerHTML = `
-      <strong>Formato:</strong> ${r(formatos)}<br>
-      <strong>Objetivo:</strong> ${r(objetivos)}<br>
-      <strong>Ideia:</strong> ${r(ideias)}<br>
-      <strong>Roteiro:</strong> ${r(roteiros)}<br>
-      <strong>CTA:</strong> ${r(ctas)}
-    `;
-  }
+// Funções IA simulada
+function gerarHoje(){
+const formatos=["Reel","Story","Foto"];
+const objetivos=["Engajamento","Vendas","Autoridade"];
+const ideias=["Antes e depois do bolo","Detalhe do acabamento em close","Corte do bolo em câmera lenta","Cliente retirando o pedido","Bastidores da produção"];
+const roteiros=["Mostre o bolo simples → transição → bolo final","Close no acabamento com música suave","Processo acelerado do preparo","Reação do cliente ao ver o bolo","Corte lento mostrando recheio"];
+const ctas=["Qual sabor você escolheria?","Comenta 🍰 se gostou","Chama no direct pra encomendar","Salva esse post","Marca alguém que ama doce"];
+const r=arr=>arr[Math.floor(Math.random()*arr.length)];
+document.getElementById("todayPost").innerHTML=`
+<strong>Formato:</strong> ${r(formatos)}<br>
+<strong>Objetivo:</strong> ${r(objetivos)}<br>
+<strong>Ideia:</strong> ${r(ideias)}<br>
+<strong>Roteiro:</strong> ${r(roteiros)}<br>
+<strong>CTA:</strong> ${r(ctas)}
+`;
+}
 
-  function gerarReel(){ gerarHoje(); document.getElementById("reelIdea").innerHTML = document.getElementById("todayPost").innerHTML; }
-  function gerarStory(){ gerarHoje(); document.getElementById("storyIdea").innerHTML = document.getElementById("todayPost").innerHTML; }
+function gerarReel(){ gerarHoje(); document.getElementById("reelIdea").innerHTML=document.getElementById("todayPost").innerHTML; }
+function gerarStory(){ gerarHoje(); document.getElementById("storyIdea").innerHTML=document.getElementById("todayPost").innerHTML; }
 
-  // Análise com base nos dados que você preencheu
-  function analisarPerfilReal(){
-    const username = document.getElementById("username").value;
-    const freq = Number(document.getElementById("frequencia").value);
-    const reels = Number(document.getElementById("reels").value);
-    const stories = Number(document.getElementById("storiesNum").value);
-    const fotos = Number(document.getElementById("fotos").value);
-    const eng = Number(document.getElementById("engajamento").value);
+// Análise avançada + calendário automático
+function analisarPerfilAvancado(){
+const username=document.getElementById("username").value;
+const freq=Number(document.getElementById("frequencia").value);
+const reels=Number(document.getElementById("reels").value);
+const stories=Number(document.getElementById("storiesNum").value);
+const fotos=Number(document.getElementById("fotos").value);
+const eng=Number(document.getElementById("engajamento").value);
 
-    let nota = 0;
-    let recomendacoes = [];
+let nota=0;
+let recomendacoes=[];
 
-    if(freq >= 3) nota += 2; else recomendacoes.push("Poste pelo menos 3x por semana");
-    if(reels >= 2) nota += 2; else recomendacoes.push("Publique mais Reels");
-    if(stories >= 3) nota += 1; else recomendacoes.push("Use mais Stories diários");
-    if(fotos >= 2) nota += 1; else recomendacoes.push("Use fotos de qualidade para engajar");
-    if(eng >= 100) nota += 2; else recomendacoes.push("Tente aumentar engajamento com CTAs");
+// Pontuação baseada nos dados
+if(freq>=3) nota+=2; else recomendacoes.push("Poste pelo menos 3x por semana");
+if(reels>=2) nota+=2; else recomendacoes.push("Publique mais Reels");
+if(stories>=3) nota+=1; else recomendacoes.push("Use mais Stories diários");
+if(fotos>=2) nota+=1; else recomendacoes.push("Use fotos de qualidade para engajar");
+if(eng>=100) nota+=2; else recomendacoes.push("Tente aumentar engajamento com CTAs");
+if(nota>=7) recomendacoes.push("Seu perfil está bem posicionado! Foque em conversão");
 
-    if(nota >= 7) recomendacoes.push("Seu perfil está bem posicionado! Foque em conversão");
+// Calendário personalizado
+const dias=["Segunda","Terça","Quarta","Quinta","Sexta","Sábado","Domingo"];
+let calendario=[];
+for(let i=0;i<7;i++){
+let tipo="Foto";
+if(i%2==0 && reels>0){ tipo="Reel"; }
+else if(i%3==0 && stories>0){ tipo="Story"; }
+calendario.push(`<li>${dias[i]}: ${tipo}</li>`);
+}
+document.getElementById("calendarList").innerHTML=calendario.join("");
 
-    document.getElementById("resultadoAnalise").innerHTML = `
-      <strong>@:</strong> ${username}<br>
-      <strong>Posts/semana:</strong> ${freq}<br>
-      <strong>Reels:</strong> ${reels}<br>
-      <strong>Stories:</strong> ${stories}<br>
-      <strong>Fotos:</strong> ${fotos}<br>
-      <strong>Engajamento médio:</strong> ${eng}<br>
-      <strong>Nota do perfil:</strong> ${nota}/8<br>
-      <strong>Recomendações:</strong><br>• ${recomendacoes.join("<br>• ")}
-    `;
-  }
+// Resultado final
+document.getElementById("resultadoAnalise").innerHTML=`
+<strong>@:</strong> ${username}<br>
+<strong>Posts/semana:</strong> ${freq}<br>
+<strong>Reels:</strong> ${reels}<br>
+<strong>Stories:</strong> ${stories}<br>
+<strong>Fotos:</strong> ${fotos}<br>
+<strong>Engajamento médio:</strong> ${eng}<br>
+<strong>Nota do perfil:</strong> ${nota}/8<br>
+<strong>Recomendações:</strong><br>• ${recomendacoes.join("<br>• ")}<br>
+<strong>Calendário sugerido:</strong>
+<ul>${calendario.join("")}</ul>
+`;
+}
 </script>
-
 </body>
   </html>
