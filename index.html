@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>BakeGrowth IA Pro 4.3 - Visual Real</title>
+<title>BakeGrowth IA Pro 4.4 - Imagens Reais</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 body { font-family: Arial,sans-serif; background:#111; color:#fff; margin:0; }
@@ -50,7 +50,7 @@ strong { color:#ff4d6d; }
 <div class="card">
 <h2>🎥 Reels - 3 sugestões</h2>
 <div id="reelList"></div>
-<button onclick="gerarReels()">Gerar novas sugestões</button>
+<button onclick="gerarReelsIA()">Gerar novas sugestões</button>
 </div>
 </section>
 
@@ -59,7 +59,7 @@ strong { color:#ff4d6d; }
 <div class="card">
 <h2>📸 Fotos - 3 sugestões</h2>
 <div id="fotoList"></div>
-<button onclick="gerarFotos()">Gerar novas sugestões</button>
+<button onclick="gerarFotosIA()">Gerar novas sugestões</button>
 </div>
 </section>
 
@@ -68,7 +68,7 @@ strong { color:#ff4d6d; }
 <div class="card">
 <h2>📲 Stories - 3 sugestões</h2>
 <div id="storyList"></div>
-<button onclick="gerarStories()">Gerar novas sugestões</button>
+<button onclick="gerarStoriesIA()">Gerar novas sugestões</button>
 </div>
 </section>
 
@@ -84,7 +84,7 @@ strong { color:#ff4d6d; }
 <!-- ANÁLISE IA -->
 <section id="pro" class="tab">
 <div class="card">
-<h2>📊 Simulação de Análise do Perfil Instagram</h2>
+<h2>📊 Análise de Perfil + Sugestões Visuais</h2>
 
 <label>Seu @Instagram:</label>
 <input id="username" placeholder="Ex: @meuperfil" value="@meuperfil">
@@ -142,64 +142,78 @@ list.appendChild(li);
 });
 }
 
-// Funções de conteúdo com imagens simuladas
-function gerarHoje(){
+// Funções de conteúdo com imagens IA
+async function gerarImagem(prompt,width=300,height=500){
+  // 🔴 Substitua "SUA_CHAVE_API" pela sua chave real da OpenAI
+  const response=await fetch("https://api.openai.com/v1/images/generations",{
+    method:"POST",
+    headers:{
+      "Content-Type":"application/json",
+      "Authorization":"Bearer SUA_CHAVE_API"
+    },
+    body:JSON.stringify({
+      model:"gpt-image-1",
+      prompt:prompt,
+      size:`${width}x${height}`
+    })
+  });
+  const data=await response.json();
+  return data.data[0].url;
+}
+
+function randomItem(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+
+async function gerarHoje(){
 const formatos=["Reel","Story","Foto"];
 const objetivos=["Engajamento","Vendas","Autoridade"];
 const ideias=["Antes e depois do bolo","Detalhe do acabamento em close","Corte do bolo em câmera lenta","Cliente retirando o pedido","Bastidores da produção"];
 const roteiros=["Mostre o bolo simples → transição → bolo final","Close no acabamento com música suave","Processo acelerado do preparo","Reação do cliente ao ver o bolo","Corte lento mostrando recheio"];
 const ctas=["Qual sabor você escolheria?","Comenta 🍰 se gostou","Chama no direct pra encomendar","Salva esse post","Marca alguém que ama doce"];
-const hashtags={
-"Reel":["#reel","#confeitaria","#bolo","#doces","#cake","#cakevideo","#decoracao","#bake","#sweet","#boloartesanal"],
-"Story":["#story","#bastidores","#cake","#doces","#sweet","#confeitaria","#bolo","#cakevideo","#receita","#decoracao"],
-"Foto":["#foto","#bolo","#doces","#cake","#confeitaria","#sweet","#cakeporn","#decoracao","#bake","#receita"]
-};
-const r=arr=>arr[Math.floor(Math.random()*arr.length)];
-let formato=r(formatos);
-let ideia=`Formato: ${formato}\nObjetivo: ${r(objetivos)}\nIdeia: ${r(ideias)}\nRoteiro: ${r(roteiros)}\nCTA: ${r(ctas)}\nHashtags: ${hashtags[formato].sort(()=>0.5-Math.random()).slice(0,5).join(" ")}`;
+const formato=randomItem(formatos);
+const ideia=`Formato: ${formato}\nObjetivo: ${randomItem(objetivos)}\nIdeia: ${randomItem(ideias)}\nRoteiro: ${randomItem(roteiros)}\nCTA: ${randomItem(ctas)}`;
 document.getElementById("todayPost").innerText=ideia;
 historico.push(ideia);
 atualizarHistorico();
-gerarReels();
-gerarFotos();
-gerarStories();
+await gerarReelsIA();
+await gerarFotosIA();
+await gerarStoriesIA();
 }
 
-// Funções para 3 sugestões com imagens simuladas
-function gerarReels(){
+// Funções IA Reels/Fotos/Stories
+async function gerarReelsIA(){
 const container=document.getElementById("reelList");
 container.innerHTML="";
 for(let i=0;i<3;i++){
-let div=document.createElement("div");
-div.className="mockup";
-div.innerHTML=`<h4>Reel ${i+1}</h4>
-<img src="https://via.placeholder.com/300x500/ff4d6d/111?text=Reel+${i+1}" alt="Reel ${i+1}">
-<p>${document.getElementById("todayPost").innerText}</p>`;
-container.appendChild(div);
+  let prompt=`Reel de confeitaria mostrando "Antes e depois do bolo", close no recheio, estilo Instagram vertical, cores vibrantes`;
+  let url=await gerarImagem(prompt,300,500);
+  let div=document.createElement("div");
+  div.className="mockup";
+  div.innerHTML=`<h4>Reel ${i+1}</h4><img src="${url}" alt="Reel ${i+1}"><p>${document.getElementById("todayPost").innerText}</p>`;
+  container.appendChild(div);
 }
 }
-function gerarFotos(){
+async function gerarFotosIA(){
 const container=document.getElementById("fotoList");
 container.innerHTML="";
 for(let i=0;i<3;i++){
-let div=document.createElement("div");
-div.className="mockup";
-div.innerHTML=`<h4>Foto ${i+1}</h4>
-<img src="https://via.placeholder.com/300x300/ff4d6d/111?text=Foto+${i+1}" alt="Foto ${i+1}">
-<p>${document.getElementById("todayPost").innerText}</p>`;
-container.appendChild(div);
+  let prompt=`Foto de bolo decorado artesanalmente, iluminação natural, fundo neutro, estilo Instagram, foco no detalhe do acabamento`;
+  let url=await gerarImagem(prompt,300,300);
+  let div=document.createElement("div");
+  div.className="mockup";
+  div.innerHTML=`<h4>Foto ${i+1}</h4><img src="${url}" alt="Foto ${i+1}"><p>${document.getElementById("todayPost").innerText}</p>`;
+  container.appendChild(div);
 }
 }
-function gerarStories(){
+async function gerarStoriesIA(){
 const container=document.getElementById("storyList");
 container.innerHTML="";
 for(let i=0;i<3;i++){
-let div=document.createElement("div");
-div.className="mockup";
-div.innerHTML=`<h4>Story ${i+1}</h4>
-<img src="https://via.placeholder.com/300x500/ff4d6d/111?text=Story+${i+1}" alt="Story ${i+1}">
-<p>${document.getElementById("todayPost").innerText}</p>`;
-container.appendChild(div);
+  let prompt=`Story vertical, bolo sendo cortado, fundo decorativo, texto: "Qual sabor você escolheria?", cores vibrantes`;
+  let url=await gerarImagem(prompt,300,500);
+  let div=document.createElement("div");
+  div.className="mockup";
+  div.innerHTML=`<h4>Story ${i+1}</h4><img src="${url}" alt="Story ${i+1}"><p>${document.getElementById("todayPost").innerText}</p>`;
+  container.appendChild(div);
 }
 }
 
@@ -259,11 +273,11 @@ navigator.clipboard.writeText(texto).then(()=>alert("Calendário copiado!"));
 }
 
 // Auto-gerar tudo ao abrir
-window.onload=function(){
-gerarHoje();
+window.onload=async function(){
+await gerarHoje();
 analisarPerfilIA();
 };
-</script>
 
+</script>
 </body>
-</html>
+  </html>
