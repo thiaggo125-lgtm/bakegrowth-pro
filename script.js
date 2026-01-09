@@ -1,3 +1,4 @@
+// ===== CONTROLE DE ABAS =====
 function showTab(id) {
   document.querySelectorAll('.tab').forEach(tab => {
     tab.classList.remove('active');
@@ -5,39 +6,71 @@ function showTab(id) {
   document.getElementById(id).classList.add('active');
 }
 
+// ===== BASE DE CONTEÚDO (IA) =====
+const reelsEngajamento = [
+  {
+    ideia: "Mostre o acabamento do bolo em câmera lenta",
+    roteiro: "Comece com o bolo simples → transição para o bolo finalizado",
+    cta: "Qual sabor você escolheria? 🍰"
+  },
+  {
+    ideia: "Antes e depois de um doce personalizado",
+    roteiro: "Mostre o processo rápido + resultado final",
+    cta: "Você prefere simples ou decorado?"
+  },
+  {
+    ideia: "Cliente reagindo ao receber o bolo",
+    roteiro: "Grave a reação + detalhe do bolo",
+    cta: "Marque alguém que ia amar isso 😍"
+  },
+  {
+    ideia: "Erro comum na confeitaria",
+    roteiro: "Mostre o erro → como corrigir",
+    cta: "Você já passou por isso?"
+  },
+  {
+    ideia: "Detalhe satisfatório (ASMR)",
+    roteiro: "Corte do bolo ou finalização",
+    cta: "Curte vídeos assim? ❤️"
+  }
+];
+
+const storiesEngajamento = [
+  "Mostre o bolo do dia + enquete: Chocolate 🍫 ou Morango 🍓?",
+  "Bastidores da produção + pergunta: Quer ver o resultado?",
+  "Mostre dois doces e pergunte: Qual você escolheria?",
+  "Vídeo curto trabalhando + sticker 'Arrasta pra cima mental 😅'",
+  "Story com você falando: Você prefere recheio cremoso ou crocante?"
+];
+
+const postsHoje = [
+  "Reel mostrando detalhe do acabamento",
+  "Story interativo com enquete",
+  "Reel curto mostrando transformação",
+  "Story mostrando bastidores reais",
+  "Reel com tendência + bolo"
+];
+
+// ===== FUNÇÕES IA =====
+function randomItem(lista) {
+  return lista[Math.floor(Math.random() * lista.length)];
+}
+
+// HOJE
 function gerarPost() {
+  const ideia = randomItem(postsHoje);
   document.getElementById("todayPost").innerText =
-    "Detalhes do acabamento em câmera lenta";
+    `📌 Sugestão de hoje:\n${ideia}\n\n🎯 Objetivo: ganhar seguidores`;
 }
 
+// STORY SIMPLES
 function gerarStory() {
+  const ideia = randomItem(storiesEngajamento);
   document.getElementById("story").innerText =
-    "Bastidores da produção";
+    `📲 Story sugerido:\n${ideia}`;
 }
 
+// REEL IA
 function gerarReel() {
-  document.getElementById("reelIdea").innerText =
-    "Cliente retirando o pedido";
-}
-
-function gerarStoryPro() {
-  document.getElementById("storyPro").innerText =
-    "Depoimento de cliente";
-}
-
-function gerarPro() {
-  document.getElementById("proText").innerText =
-    "Story mostrando autoridade no que faz";
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-  document.getElementById("calendarList").innerHTML = `
-    <li>Segunda: Foto do bolo</li>
-    <li>Terça: Story interativo</li>
-    <li>Quarta: Reel</li>
-    <li>Quinta: Bastidores</li>
-    <li>Sexta: Oferta</li>
-    <li>Sábado: Depoimento</li>
-    <li>Domingo: Repost</li>
-  `;
-});
+  const reel = randomItem(reelsEngajamento);
+  document
