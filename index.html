@@ -2,13 +2,13 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>BakeGrowth Pro</title>
+  <title>BakeGrowth Pro - Análise de Perfil</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #111; /* fundo preto */
+      background: #111;
       color: #fff;
       margin: 0;
     }
@@ -34,18 +34,10 @@
       transition: 0.2s;
     }
 
-    .tabs button:hover {
-      background: #ff4d6d;
-    }
+    .tabs button:hover { background: #ff4d6d; }
 
-    .tab {
-      display: none;
-      padding: 15px;
-    }
-
-    .tab.active {
-      display: block;
-    }
+    .tab { display: none; padding: 15px; }
+    .tab.active { display: block; }
 
     .card {
       background: #1c1c1c;
@@ -69,9 +61,7 @@
       transition: 0.2s;
     }
 
-    button:hover {
-      background: #ff6a85;
-    }
+    button:hover { background: #ff6a85; }
 
     input, textarea, select {
       width: 100%;
@@ -84,17 +74,10 @@
       color: #fff;
     }
 
-    input::placeholder, textarea::placeholder {
-      color: #ccc;
-    }
+    input::placeholder, textarea::placeholder { color: #ccc; }
 
-    p {
-      line-height: 1.4;
-    }
-
-    strong {
-      color: #ff4d6d;
-    }
+    p { line-height: 1.4; }
+    strong { color: #ff4d6d; }
   </style>
 </head>
 
@@ -105,11 +88,10 @@
   <button onclick="showTab('calendario')">📅 Calendário</button>
   <button onclick="showTab('reels')">🎥 Reels</button>
   <button onclick="showTab('stories')">📲 Stories</button>
-  <button onclick="showTab('pro')">📊 Análise</button>
+  <button onclick="showTab('pro')">📊 Análise Perfil</button>
 </nav>
 
 <main>
-
   <!-- HOJE -->
   <section id="hoje" class="tab active">
     <div class="card">
@@ -158,25 +140,25 @@
     <div class="card">
       <h2>📊 Análise do Perfil Instagram</h2>
 
-      <label>Nicho:</label>
-      <input id="nicho" placeholder="Ex: Confeitaria">
+      <label>@Instagram:</label>
+      <input id="username" placeholder="Ex: @meuperfil">
 
-      <label>Postagens por semana:</label>
+      <label>Número de posts por semana:</label>
       <input id="frequencia" type="number" placeholder="Ex: 3">
 
-      <label>Bio:</label>
-      <textarea id="bio" placeholder="Ex: Bolos artesanais sob encomenda"></textarea>
+      <label>Número de Reels:</label>
+      <input id="reels" type="number" placeholder="Ex: 2">
 
-      <label>Conteúdo principal:</label>
-      <select id="conteudo">
-        <option>Bastidores</option>
-        <option>Reels</option>
-        <option>Fotos</option>
-        <option>Promoções</option>
-        <option>Misturado</option>
-      </select>
+      <label>Número de Stories:</label>
+      <input id="storiesNum" type="number" placeholder="Ex: 5">
 
-      <button onclick="analisarPerfil()">Analisar perfil</button>
+      <label>Posts de foto:</label>
+      <input id="fotos" type="number" placeholder="Ex: 3">
+
+      <label>Média de engajamento (curtidas/comentários):</label>
+      <input id="engajamento" type="number" placeholder="Ex: 150">
+
+      <button onclick="analisarPerfilReal()">Analisar Perfil</button>
 
       <p id="resultadoAnalise"></p>
     </div>
@@ -190,33 +172,14 @@
     document.getElementById(id).classList.add('active');
   }
 
+  // Funções IA simulada
   function gerarHoje() {
     const formatos = ["Reel","Story","Foto"];
     const objetivos = ["Engajamento","Vendas","Autoridade"];
-    const ideias = [
-      "Antes e depois do bolo",
-      "Detalhe do acabamento em close",
-      "Corte do bolo em câmera lenta",
-      "Cliente retirando o pedido",
-      "Bastidores da produção"
-    ];
-    const roteiros = [
-      "Mostre o bolo simples → transição → bolo final",
-      "Close no acabamento com música suave",
-      "Processo acelerado do preparo",
-      "Reação do cliente ao ver o bolo",
-      "Corte lento mostrando recheio"
-    ];
-    const ctas = [
-      "Qual sabor você escolheria?",
-      "Comenta 🍰 se gostou",
-      "Chama no direct pra encomendar",
-      "Salva esse post",
-      "Marca alguém que ama doce"
-    ];
-
-    function r(arr){return arr[Math.floor(Math.random()*arr.length)];}
-
+    const ideias = ["Antes e depois do bolo","Detalhe do acabamento em close","Corte do bolo em câmera lenta","Cliente retirando o pedido","Bastidores da produção"];
+    const roteiros = ["Mostre o bolo simples → transição → bolo final","Close no acabamento com música suave","Processo acelerado do preparo","Reação do cliente ao ver o bolo","Corte lento mostrando recheio"];
+    const ctas = ["Qual sabor você escolheria?","Comenta 🍰 se gostou","Chama no direct pra encomendar","Salva esse post","Marca alguém que ama doce"];
+    const r = arr => arr[Math.floor(Math.random()*arr.length)];
     document.getElementById("todayPost").innerHTML = `
       <strong>Formato:</strong> ${r(formatos)}<br>
       <strong>Objetivo:</strong> ${r(objetivos)}<br>
@@ -226,49 +189,41 @@
     `;
   }
 
-  function gerarReel(){
-    gerarHoje(); 
-    document.getElementById("reelIdea").innerHTML = document.getElementById("todayPost").innerHTML;
-  }
+  function gerarReel(){ gerarHoje(); document.getElementById("reelIdea").innerHTML = document.getElementById("todayPost").innerHTML; }
+  function gerarStory(){ gerarHoje(); document.getElementById("storyIdea").innerHTML = document.getElementById("todayPost").innerHTML; }
 
-  function gerarStory(){
-    gerarHoje(); 
-    document.getElementById("storyIdea").innerHTML = document.getElementById("todayPost").innerHTML;
-  }
-
-  function analisarPerfil() {
-    const nicho = document.getElementById("nicho").value;
-    const freq = document.getElementById("frequencia").value;
-    const bio = document.getElementById("bio").value;
-    const conteudo = document.getElementById("conteudo").value;
+  // Análise com base nos dados que você preencheu
+  function analisarPerfilReal(){
+    const username = document.getElementById("username").value;
+    const freq = Number(document.getElementById("frequencia").value);
+    const reels = Number(document.getElementById("reels").value);
+    const stories = Number(document.getElementById("storiesNum").value);
+    const fotos = Number(document.getElementById("fotos").value);
+    const eng = Number(document.getElementById("engajamento").value);
 
     let nota = 0;
-    let melhorias = [];
+    let recomendacoes = [];
 
-    if (nicho.length > 3) nota += 2;
-    else melhorias.push("Defina melhor seu nicho");
+    if(freq >= 3) nota += 2; else recomendacoes.push("Poste pelo menos 3x por semana");
+    if(reels >= 2) nota += 2; else recomendacoes.push("Publique mais Reels");
+    if(stories >= 3) nota += 1; else recomendacoes.push("Use mais Stories diários");
+    if(fotos >= 2) nota += 1; else recomendacoes.push("Use fotos de qualidade para engajar");
+    if(eng >= 100) nota += 2; else recomendacoes.push("Tente aumentar engajamento com CTAs");
 
-    if (freq >= 3) nota += 2;
-    else melhorias.push("Poste pelo menos 3x por semana");
-
-    if (bio.length > 20) nota += 2;
-    else melhorias.push("Bio muito curta, explique o que você vende");
-
-    if (conteudo === "Reels" || conteudo === "Misturado") nota += 2;
-    else melhorias.push("Use mais Reels para alcance");
-
-    if (nota >= 7) melhorias.push("Perfil bem posicionado, foque em conversão");
+    if(nota >= 7) recomendacoes.push("Seu perfil está bem posicionado! Foque em conversão");
 
     document.getElementById("resultadoAnalise").innerHTML = `
-      <strong>📌 Nicho:</strong> ${nicho}<br>
-      <strong>📈 Frequência:</strong> ${freq}/semana<br>
-      <strong>📦 Conteúdo:</strong> ${conteudo}<br>
-      <strong>⭐ Nota do perfil:</strong> ${nota}/8<br>
-      <strong>🚀 Recomendações:</strong><br>
-      ${melhorias.map(m => "• " + m).join("<br>")}
+      <strong>@:</strong> ${username}<br>
+      <strong>Posts/semana:</strong> ${freq}<br>
+      <strong>Reels:</strong> ${reels}<br>
+      <strong>Stories:</strong> ${stories}<br>
+      <strong>Fotos:</strong> ${fotos}<br>
+      <strong>Engajamento médio:</strong> ${eng}<br>
+      <strong>Nota do perfil:</strong> ${nota}/8<br>
+      <strong>Recomendações:</strong><br>• ${recomendacoes.join("<br>• ")}
     `;
   }
 </script>
 
 </body>
-</html>
+  </html>
