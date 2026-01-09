@@ -8,16 +8,16 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #111;
-      color: #fff;
+      background: #181818; /* escuro mas não preto total */
+      color: #eee; /* texto claro */
       margin: 0;
     }
 
     .tabs {
       display: flex;
-      gap: 5px;
+      gap: 6px;
       padding: 10px;
-      background: #1e1e1e;
+      background: #222;
     }
 
     .tabs button {
@@ -26,8 +26,13 @@
       background: #333;
       color: #fff;
       border: none;
-      border-radius: 6px;
+      border-radius: 8px;
       cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .tabs button:hover {
+      background: #ff4d6d;
     }
 
     .tab {
@@ -40,29 +45,47 @@
     }
 
     .card {
-      background: #1c1c1c;
+      background: #2a2a2a;
       padding: 15px;
       margin-bottom: 12px;
-      border-radius: 10px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.5);
     }
 
     button {
       background: #ff4d6d;
       color: #fff;
       border: none;
-      padding: 10px;
-      border-radius: 8px;
+      padding: 12px;
+      border-radius: 10px;
       cursor: pointer;
+      width: 100%;
+      font-size: 16px;
       margin-top: 10px;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      background: #ff6a85;
     }
 
     input, textarea, select {
       width: 100%;
-      padding: 8px;
+      padding: 10px;
       margin-top: 5px;
       margin-bottom: 10px;
       border-radius: 6px;
       border: none;
+      background: #3a3a3a;
+      color: #fff;
+    }
+
+    input::placeholder, textarea::placeholder {
+      color: #ccc;
+    }
+
+    p {
+      line-height: 1.4;
     }
   </style>
 </head>
@@ -81,4 +104,137 @@
 
   <!-- HOJE -->
   <section id="hoje" class="tab active">
-    <div
+    <div class="card">
+      <h2>📌 O que postar hoje</h2>
+      <p id="todayPost">Clique no botão</p>
+      <button onclick="gerarHoje()">Gerar ideia</button>
+    </div>
+  </section>
+
+  <!-- CALENDÁRIO -->
+  <section id="calendario" class="tab">
+    <div class="card">
+      <h2>📅 Calendário semanal</h2>
+      <ul>
+        <li>Segunda: Bastidores</li>
+        <li>Terça: Story interativo</li>
+        <li>Quarta: Reel</li>
+        <li>Quinta: Depoimento</li>
+        <li>Sexta: Oferta</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- REELS -->
+  <section id="reels" class="tab">
+    <div class="card">
+      <h2>🎥 Reel</h2>
+      <p id="reelIdea">Clique no botão</p>
+      <button onclick="gerarReel()">Gerar reel</button>
+    </div>
+  </section>
+
+  <!-- STORIES -->
+  <section id="stories" class="tab">
+    <div class="card">
+      <h2>📲 Stories</h2>
+      <p id="storyIdea">Clique no botão</p>
+      <button onclick="gerarStory()">Gerar story</button>
+    </div>
+  </section>
+
+  <!-- ANÁLISE -->
+  <section id="pro" class="tab">
+    <div class="card">
+      <h2>📊 Análise do Perfil Instagram</h2>
+
+      <label>Nicho:</label>
+      <input id="nicho" placeholder="Ex: Confeitaria">
+
+      <label>Postagens por semana:</label>
+      <input id="frequencia" type="number" placeholder="Ex: 3">
+
+      <label>Bio:</label>
+      <textarea id="bio" placeholder="Ex: Bolos artesanais sob encomenda"></textarea>
+
+      <label>Conteúdo principal:</label>
+      <select id="conteudo">
+        <option>Bastidores</option>
+        <option>Reels</option>
+        <option>Fotos</option>
+        <option>Promoções</option>
+        <option>Misturado</option>
+      </select>
+
+      <button onclick="analisarPerfil()">Analisar perfil</button>
+
+      <p id="resultadoAnalise"></p>
+    </div>
+  </section>
+
+</main>
+
+<script>
+  function showTab(id) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+  }
+
+  function gerarHoje() {
+    const ideias = [
+      "Antes e depois do bolo",
+      "Detalhe do acabamento em close",
+      "Corte do bolo em câmera lenta",
+      "Cliente retirando o pedido",
+      "Bastidores da produção"
+    ];
+    document.getElementById("todayPost").innerText =
+      ideias[Math.floor(Math.random() * ideias.length)];
+  }
+
+  function gerarReel() {
+    document.getElementById("reelIdea").innerText =
+      "Reel com transformação + música em alta";
+  }
+
+  function gerarStory() {
+    document.getElementById("storyIdea").innerText =
+      "Mostre bastidores + enquete";
+  }
+
+  function analisarPerfil() {
+    const nicho = document.getElementById("nicho").value;
+    const freq = document.getElementById("frequencia").value;
+    const bio = document.getElementById("bio").value;
+    const conteudo = document.getElementById("conteudo").value;
+
+    let nota = 0;
+    let melhorias = [];
+
+    if (nicho.length > 3) nota += 2;
+    else melhorias.push("Defina melhor seu nicho");
+
+    if (freq >= 3) nota += 2;
+    else melhorias.push("Poste pelo menos 3x por semana");
+
+    if (bio.length > 20) nota += 2;
+    else melhorias.push("Bio muito curta, explique o que você vende");
+
+    if (conteudo === "Reels" || conteudo === "Misturado") nota += 2;
+    else melhorias.push("Use mais Reels para alcance");
+
+    if (nota >= 7) melhorias.push("Perfil bem posicionado, foque em conversão");
+
+    document.getElementById("resultadoAnalise").innerHTML = `
+      <strong>📌 Nicho:</strong> ${nicho}<br>
+      <strong>📈 Frequência:</strong> ${freq}/semana<br>
+      <strong>📦 Conteúdo:</strong> ${conteudo}<br>
+      <strong>⭐ Nota do perfil:</strong> ${nota}/8<br>
+      <strong>🚀 Recomendações:</strong><br>
+      ${melhorias.map(m => "• " + m).join("<br>")}
+    `;
+  }
+</script>
+
+</body>
+          </html>
