@@ -2,11 +2,11 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>BakeGrowth Pro Avançado - PRO</title>
+<title>BakeGrowth Ultimate PRO</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-body { font-family: Arial, sans-serif; background: #111; color: #fff; margin: 0; }
-.tabs { display: flex; gap:6px; padding: 10px; background: #1a1a1a; position: sticky; top: 0; z-index: 10; }
+body { font-family: Arial, sans-serif; background:#111; color:#fff; margin:0; }
+.tabs { display:flex; gap:6px; padding:10px; background:#1a1a1a; position:sticky; top:0; z-index:10; }
 .tabs button { flex:1; padding:10px; background:#222; color:#fff; border:none; border-radius:8px; cursor:pointer; transition:0.2s; }
 .tabs button:hover { background:#ff4d6d; }
 .tab { display:none; padding:15px; }
@@ -16,7 +16,7 @@ button { background:#ff4d6d; color:#fff; border:none; padding:12px; border-radiu
 button:hover { background:#ff6a85; }
 input, textarea, select { width:100%; padding:10px; margin-top:5px; margin-bottom:10px; border-radius:6px; border:none; background:#333; color:#fff; }
 input::placeholder, textarea::placeholder { color:#ccc; }
-p { line-height:1.4; }
+p, ul { line-height:1.4; }
 strong { color:#ff4d6d; }
 </style>
 </head>
@@ -43,8 +43,9 @@ strong { color:#ff4d6d; }
 <!-- CALENDÁRIO -->
 <section id="calendario" class="tab">
 <div class="card">
-<h2>📅 Calendário personalizado</h2>
+<h2>📅 Calendário semanal sugerido</h2>
 <ul id="calendarList"></ul>
+<button onclick="exportarCalendario()">📋 Copiar calendário</button>
 </div>
 </section>
 
@@ -69,7 +70,7 @@ strong { color:#ff4d6d; }
 <!-- ANÁLISE -->
 <section id="pro" class="tab">
 <div class="card">
-<h2>📊 Análise do Perfil Instagram - PRO</h2>
+<h2>📊 Análise do Perfil Instagram - Ultimate PRO</h2>
 
 <label>Seu @Instagram:</label>
 <input id="username" placeholder="Ex: @meuperfil">
@@ -94,7 +95,10 @@ strong { color:#ff4d6d; }
 <input id="ref2" placeholder="Ex: @bolosdaana">
 <input id="ref3" placeholder="Ex: @sweetbakery">
 
-<button onclick="analisarPerfilPRO()">Analisar Perfil + Calendário</button>
+<button onclick="analisarPerfilUltimate()">Analisar Perfil + Calendário</button>
+
+<h3>Histórico de ideias geradas</h3>
+<ul id="historicoList"></ul>
 
 <p id="resultadoAnalise"></p>
 </div>
@@ -107,6 +111,9 @@ document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
 document.getElementById(id).classList.add('active');
 }
 
+// Histórico no navegador
+let historico = JSON.parse(localStorage.getItem("historicoBake")) || [];
+
 // Funções IA simulada
 function gerarHoje(){
 const formatos=["Reel","Story","Foto"];
@@ -115,20 +122,29 @@ const ideias=["Antes e depois do bolo","Detalhe do acabamento em close","Corte d
 const roteiros=["Mostre o bolo simples → transição → bolo final","Close no acabamento com música suave","Processo acelerado do preparo","Reação do cliente ao ver o bolo","Corte lento mostrando recheio"];
 const ctas=["Qual sabor você escolheria?","Comenta 🍰 se gostou","Chama no direct pra encomendar","Salva esse post","Marca alguém que ama doce"];
 const r=arr=>arr[Math.floor(Math.random()*arr.length)];
-document.getElementById("todayPost").innerHTML=`
-<strong>Formato:</strong> ${r(formatos)}<br>
-<strong>Objetivo:</strong> ${r(objetivos)}<br>
-<strong>Ideia:</strong> ${r(ideias)}<br>
-<strong>Roteiro:</strong> ${r(roteiros)}<br>
-<strong>CTA:</strong> ${r(ctas)}
-`;
+const ideia=`Formato: ${r(formatos)}, Objetivo: ${r(objetivos)}, Ideia: ${r(ideias)}, Roteiro: ${r(roteiros)}, CTA: ${r(ctas)}`;
+document.getElementById("todayPost").innerHTML=ideia;
+historico.push(ideia);
+localStorage.setItem("historicoBake",JSON.stringify(historico));
+atualizarHistorico();
 }
 
 function gerarReel(){ gerarHoje(); document.getElementById("reelIdea").innerHTML=document.getElementById("todayPost").innerHTML; }
 function gerarStory(){ gerarHoje(); document.getElementById("storyIdea").innerHTML=document.getElementById("todayPost").innerHTML; }
 
-// Análise PRO com calendário + perfis de referência
-function analisarPerfilPRO(){
+function atualizarHistorico(){
+const list=document.getElementById("historicoList");
+list.innerHTML="";
+historico.forEach(item=>{
+let li=document.createElement("li");
+li.innerText=item;
+list.appendChild(li);
+});
+}
+atualizarHistorico();
+
+// Análise Ultimate PRO
+function analisarPerfilUltimate(){
 const username=document.getElementById("username").value;
 const freq=Number(document.getElementById("frequencia").value);
 const reels=Number(document.getElementById("reels").value);
@@ -146,21 +162,19 @@ if(fotos>=2) nota+=1; else recomendacoes.push("Use fotos de qualidade para engaj
 if(eng>=100) nota+=2; else recomendacoes.push("Tente aumentar engajamento com CTAs");
 if(nota>=7) recomendacoes.push("Seu perfil está bem posicionado! Foque em conversão");
 
-// Gera calendário semanal com base nos perfis de referência
 const dias=["Segunda","Terça","Quarta","Quinta","Sexta","Sábado","Domingo"];
 let calendario=[];
 for(let i=0;i<7;i++){
 let tipo="Foto";
 if(i%2==0 && reels>0){ tipo="Reel"; }
 else if(i%3==0 && stories>0){ tipo="Story"; }
-calendario.push(`<li>${dias[i]}: ${tipo}</li>`);
+calendario.push(`${dias[i]}: ${tipo} (9h)`); // hora sugerida
 }
 
-// Sugestão baseada nos perfis de referência
 let inspiracao="";
 if(refs.length>0){ inspiracao=`Perfis para se inspirar: ${refs.join(", ")}.`; }
 
-document.getElementById("calendarList").innerHTML=calendario.join("");
+document.getElementById("calendarList").innerHTML=calendario.map(c=>`<li>${c}</li>`).join("");
 document.getElementById("resultadoAnalise").innerHTML=`
 <strong>@:</strong> ${username}<br>
 <strong>Posts/semana:</strong> ${freq}<br>
@@ -170,11 +184,16 @@ document.getElementById("resultadoAnalise").innerHTML=`
 <strong>Engajamento médio:</strong> ${eng}<br>
 <strong>Nota do perfil:</strong> ${nota}/8<br>
 <strong>Recomendações:</strong><br>• ${recomendacoes.join("<br>• ")}<br>
-<strong>Calendário sugerido:</strong>
-<ul>${calendario.join("")}</ul>
 <strong>${inspiracao}</strong>
 `;
 }
+
+// Exportar calendário
+function exportarCalendario(){
+const texto = document.getElementById("calendarList").innerText;
+navigator.clipboard.writeText(texto).then(()=>alert("Calendário copiado!"));
+}
 </script>
+
 </body>
-</html>
+  </html>
