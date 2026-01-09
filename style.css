@@ -44,3 +44,26 @@ button:hover {
 .tab.active {
   display: block;
 }
+.tab {
+  display: none;
+}
+
+.tab.active {
+  display: block;
+}
+
+.tabs {
+  display: flex;
+  gap: 6px;
+  padding: 10px;
+  background: #f4f4f4;
+  position: sticky;
+  top: 0;
+}
+
+.tabs button {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background: white;
+}
