@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>BakeGrowth Pro Avançado</title>
+<title>BakeGrowth Pro Avançado - PRO</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 body { font-family: Arial, sans-serif; background: #111; color: #fff; margin: 0; }
@@ -44,9 +44,7 @@ strong { color:#ff4d6d; }
 <section id="calendario" class="tab">
 <div class="card">
 <h2>📅 Calendário personalizado</h2>
-<ul id="calendarList">
-<!-- Será preenchido automaticamente -->
-</ul>
+<ul id="calendarList"></ul>
 </div>
 </section>
 
@@ -71,9 +69,9 @@ strong { color:#ff4d6d; }
 <!-- ANÁLISE -->
 <section id="pro" class="tab">
 <div class="card">
-<h2>📊 Análise do Perfil Instagram</h2>
+<h2>📊 Análise do Perfil Instagram - PRO</h2>
 
-<label>@Instagram:</label>
+<label>Seu @Instagram:</label>
 <input id="username" placeholder="Ex: @meuperfil">
 
 <label>Número de posts por semana:</label>
@@ -91,7 +89,12 @@ strong { color:#ff4d6d; }
 <label>Média de engajamento (curtidas/comentários):</label>
 <input id="engajamento" type="number" placeholder="Ex: 150">
 
-<button onclick="analisarPerfilAvancado()">Analisar Perfil e Gerar Calendário</button>
+<h3>Perfis para se espelhar (até 3)</h3>
+<input id="ref1" placeholder="Ex: @docesdelicia">
+<input id="ref2" placeholder="Ex: @bolosdaana">
+<input id="ref3" placeholder="Ex: @sweetbakery">
+
+<button onclick="analisarPerfilPRO()">Analisar Perfil + Calendário</button>
 
 <p id="resultadoAnalise"></p>
 </div>
@@ -124,19 +127,18 @@ document.getElementById("todayPost").innerHTML=`
 function gerarReel(){ gerarHoje(); document.getElementById("reelIdea").innerHTML=document.getElementById("todayPost").innerHTML; }
 function gerarStory(){ gerarHoje(); document.getElementById("storyIdea").innerHTML=document.getElementById("todayPost").innerHTML; }
 
-// Análise avançada + calendário automático
-function analisarPerfilAvancado(){
+// Análise PRO com calendário + perfis de referência
+function analisarPerfilPRO(){
 const username=document.getElementById("username").value;
 const freq=Number(document.getElementById("frequencia").value);
 const reels=Number(document.getElementById("reels").value);
 const stories=Number(document.getElementById("storiesNum").value);
 const fotos=Number(document.getElementById("fotos").value);
 const eng=Number(document.getElementById("engajamento").value);
+const refs=[document.getElementById("ref1").value,document.getElementById("ref2").value,document.getElementById("ref3").value].filter(r=>r);
 
 let nota=0;
 let recomendacoes=[];
-
-// Pontuação baseada nos dados
 if(freq>=3) nota+=2; else recomendacoes.push("Poste pelo menos 3x por semana");
 if(reels>=2) nota+=2; else recomendacoes.push("Publique mais Reels");
 if(stories>=3) nota+=1; else recomendacoes.push("Use mais Stories diários");
@@ -144,7 +146,7 @@ if(fotos>=2) nota+=1; else recomendacoes.push("Use fotos de qualidade para engaj
 if(eng>=100) nota+=2; else recomendacoes.push("Tente aumentar engajamento com CTAs");
 if(nota>=7) recomendacoes.push("Seu perfil está bem posicionado! Foque em conversão");
 
-// Calendário personalizado
+// Gera calendário semanal com base nos perfis de referência
 const dias=["Segunda","Terça","Quarta","Quinta","Sexta","Sábado","Domingo"];
 let calendario=[];
 for(let i=0;i<7;i++){
@@ -153,9 +155,12 @@ if(i%2==0 && reels>0){ tipo="Reel"; }
 else if(i%3==0 && stories>0){ tipo="Story"; }
 calendario.push(`<li>${dias[i]}: ${tipo}</li>`);
 }
-document.getElementById("calendarList").innerHTML=calendario.join("");
 
-// Resultado final
+// Sugestão baseada nos perfis de referência
+let inspiracao="";
+if(refs.length>0){ inspiracao=`Perfis para se inspirar: ${refs.join(", ")}.`; }
+
+document.getElementById("calendarList").innerHTML=calendario.join("");
 document.getElementById("resultadoAnalise").innerHTML=`
 <strong>@:</strong> ${username}<br>
 <strong>Posts/semana:</strong> ${freq}<br>
@@ -167,8 +172,9 @@ document.getElementById("resultadoAnalise").innerHTML=`
 <strong>Recomendações:</strong><br>• ${recomendacoes.join("<br>• ")}<br>
 <strong>Calendário sugerido:</strong>
 <ul>${calendario.join("")}</ul>
+<strong>${inspiracao}</strong>
 `;
 }
 </script>
 </body>
-  </html>
+</html>
