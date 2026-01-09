@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>BakeGrowth IA Pro 4.0</title>
+<title>BakeGrowth IA Pro 4.1 - Simulação</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 body { font-family: Arial,sans-serif; background:#111; color:#fff; margin:0; }
@@ -37,7 +37,7 @@ strong { color:#ff4d6d; }
 <section id="hoje" class="tab active">
 <div class="card">
 <h2>📌 Ideia de post hoje</h2>
-<p id="todayPost"></p>
+<p id="todayPost">Clique no botão</p>
 <button onclick="gerarHoje()">Gerar ideia completa</button>
 </div>
 </section>
@@ -81,7 +81,7 @@ strong { color:#ff4d6d; }
 <!-- ANÁLISE IA -->
 <section id="pro" class="tab">
 <div class="card">
-<h2>📊 Análise do Perfil Instagram - IA</h2>
+<h2>📊 Simulação de Análise do Perfil Instagram</h2>
 
 <label>Seu @Instagram:</label>
 <input id="username" placeholder="Ex: @meuperfil" value="@meuperfil">
@@ -108,7 +108,7 @@ strong { color:#ff4d6d; }
 <option value="combinado" selected>Combinado</option>
 </select>
 
-<button onclick="analisarPerfilIA()">Analisar Perfil + Calendário</button>
+<button onclick="analisarPerfilIA()">Analisar Perfil + Calendário + Sugestões</button>
 
 <h3>Resultados da IA</h3>
 <p id="resultadoAnalise"></p>
@@ -190,7 +190,7 @@ list.innerHTML+=`<li>${document.getElementById("todayPost").innerText}</li>`;
 }
 }
 
-// Análise IA
+// Análise IA simulada
 function analisarPerfilIA(){
 const modo=document.getElementById("modoAnalise").value;
 const username=document.getElementById("username").value||"@meuperfil";
