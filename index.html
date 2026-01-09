@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>BakeGrowth IA Pro 2.0</title>
+<title>BakeGrowth IA Pro 3.0</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 body { font-family: Arial,sans-serif; background:#111; color:#fff; margin:0; }
@@ -31,6 +31,8 @@ strong { color:#ff4d6d; }
 </nav>
 
 <main>
+
+<!-- HOJE -->
 <section id="hoje" class="tab active">
 <div class="card">
 <h2>📌 Ideia de post hoje</h2>
@@ -39,6 +41,7 @@ strong { color:#ff4d6d; }
 </div>
 </section>
 
+<!-- REELS -->
 <section id="reels" class="tab">
 <div class="card">
 <h2>🎥 Reel de alto engajamento</h2>
@@ -47,6 +50,7 @@ strong { color:#ff4d6d; }
 </div>
 </section>
 
+<!-- STORIES -->
 <section id="stories" class="tab">
 <div class="card">
 <h2>📲 Story interativo</h2>
@@ -55,6 +59,7 @@ strong { color:#ff4d6d; }
 </div>
 </section>
 
+<!-- CALENDÁRIO -->
 <section id="calendario" class="tab">
 <div class="card">
 <h2>📅 Calendário semanal sugerido</h2>
@@ -63,6 +68,7 @@ strong { color:#ff4d6d; }
 </div>
 </section>
 
+<!-- ANÁLISE IA -->
 <section id="pro" class="tab">
 <div class="card">
 <h2>📊 Análise do Perfil Instagram - IA</h2>
@@ -84,6 +90,13 @@ strong { color:#ff4d6d; }
 <input id="ref1" placeholder="Ex: @docesdelicia">
 <input id="ref2" placeholder="Ex: @bolosdaana">
 <input id="ref3" placeholder="Ex: @sweetbakery">
+
+<h3>Modo de análise:</h3>
+<select id="modoAnalise">
+<option value="perfil">Só meu perfil</option>
+<option value="referencia">Só perfis de referência</option>
+<option value="combinado">Combinado</option>
+</select>
 
 <button onclick="analisarPerfilIA()">Analisar Perfil + Calendário</button>
 
@@ -117,7 +130,7 @@ list.appendChild(li);
 }
 atualizarHistorico();
 
-// Funções de conteúdo inteligente com horários e hashtags
+// Funções de conteúdo com horários, hashtags e CTAs
 function gerarHoje(){
 const formatos=["Reel","Story","Foto"];
 const objetivos=["Engajamento","Vendas","Autoridade"];
@@ -148,43 +161,52 @@ localStorage.setItem("historicoBake",JSON.stringify(historico));
 atualizarHistorico();
 }
 
-// Simulação de análise IA
+function gerarReel(){ gerarHoje(); }
+function gerarStory(){ gerarHoje(); }
+
+// Análise IA avançada
 function analisarPerfilIA(){
-const username=document.getElementById("username").value || "@meuperfil";
-const freq=Number(document.getElementById("frequencia").value) || 0;
-const reels=Number(document.getElementById("reels").value) || 0;
-const stories=Number(document.getElementById("storiesNum").value) || 0;
-const fotos=Number(document.getElementById("fotos").value) || 0;
-const eng=Number(document.getElementById("engajamento").value) || 0;
+const modo=document.getElementById("modoAnalise").value;
+const username=document.getElementById("username").value||"@meuperfil";
+const freq=Number(document.getElementById("frequencia").value)||0;
+const reels=Number(document.getElementById("reels").value)||0;
+const stories=Number(document.getElementById("storiesNum").value)||0;
+const fotos=Number(document.getElementById("fotos").value)||0;
+const eng=Number(document.getElementById("engajamento").value)||0;
 const refs=[document.getElementById("ref1").value,document.getElementById("ref2").value,document.getElementById("ref3").value].filter(r=>r);
 
-let nota=0; let recomendacoes=[];
+let nota=0, recomendacoes=[];
+if(modo==="perfil" || modo==="combinado"){
 if(freq>=3) nota+=2; else recomendacoes.push("Poste pelo menos 3x por semana");
 if(reels>=2) nota+=2; else recomendacoes.push("Publique mais Reels");
 if(stories>=3) nota+=1; else recomendacoes.push("Use mais Stories diários");
 if(fotos>=2) nota+=1; else recomendacoes.push("Use fotos de qualidade");
 if(eng>=100) nota+=2; else recomendacoes.push("Tente aumentar engajamento com CTAs");
 if(nota>=7) recomendacoes.push("Seu perfil está bem posicionado!");
+}
 
+let inspiracao="", hashtagsSugeridas="";
+if((modo==="referencia" || modo==="combinado") && refs.length>0){
+inspiracao=`Perfis para se inspirar: ${refs.join(", ")}`;
+const hashtags=["#confeitaria","#bolosartesanais","#doces","#cake","#sweet","#bolo","#bake","#cakeporn","#receita","#decoracao"];
+hashtagsSugeridas=hashtags.sort(()=>0.5-Math.random()).slice(0,5).join(" ");
+}
+
+// Gera calendário com horários aleatórios
 const dias=["Segunda","Terça","Quarta","Quinta","Sexta","Sábado","Domingo"];
 let calendario=[];
 for(let i=0;i<7;i++){
 let tipo="Foto";
-if(i%2==0 && reels>0){ tipo="Reel"; }
-else if(i%3==0 && stories>0){ tipo="Story"; }
+if(i%2==0 && reels>0) tipo="Reel";
+else if(i%3==0 && stories>0) tipo="Story";
 let hora=["9h","12h","15h","18h","20h"][Math.floor(Math.random()*5)];
-calendario.push(`${dias[i]}: ${tipo} às ${hora}`); 
+calendario.push(`${dias[i]}: ${tipo} às ${hora}`);
 }
 document.getElementById("calendarList").innerHTML=calendario.map(c=>`<li>${c}</li>`).join("");
 
-let inspiracao="";
-if(refs.length>0){ inspiracao=`Perfis para se inspirar: ${refs.join(", ")}`; }
-
-const hashtags=["#confeitaria","#bolosartesanais","#doces","#cake","#sweet","#bolo","#bake","#cakeporn","#receita","#decoracao"];
-let hashtagsSugeridas=hashtags.sort(()=>0.5-Math.random()).slice(0,5).join(" ");
-
 document.getElementById("resultadoAnalise").innerHTML=
 `<strong>@:</strong> ${username}<br>
+<strong>Modo de análise:</strong> ${modo}<br>
 <strong>Posts/semana:</strong> ${freq}<br>
 <strong>Reels:</strong> ${reels}<br>
 <strong>Stories:</strong> ${stories}<br>
@@ -202,6 +224,5 @@ const texto=document.getElementById("calendarList").innerText;
 navigator.clipboard.writeText(texto).then(()=>alert("Calendário copiado!"));
 }
 </script>
-
 </body>
-</html>
+  </html>
