@@ -12,14 +12,12 @@
       color: #fff;
       margin: 0;
     }
-
     .tabs {
       display: flex;
       gap: 5px;
       padding: 10px;
       background: #1e1e1e;
     }
-
     .tabs button {
       flex: 1;
       padding: 10px;
@@ -29,23 +27,19 @@
       border-radius: 6px;
       cursor: pointer;
     }
-
     .tab {
       display: none;
       padding: 15px;
     }
-
     .tab.active {
       display: block;
     }
-
     .card {
       background: #1c1c1c;
       padding: 15px;
       margin-bottom: 12px;
       border-radius: 10px;
     }
-
     button {
       background: #ff4d6d;
       color: #fff;
@@ -53,6 +47,7 @@
       padding: 10px;
       border-radius: 8px;
       cursor: pointer;
+      margin-top: 8px;
     }
   </style>
 </head>
@@ -61,85 +56,131 @@
 
 <nav class="tabs">
   <button onclick="showTab('hoje')">🏠 Hoje</button>
-  <button onclick="showTab('calendario')">📅 Calendário</button>
   <button onclick="showTab('reels')">🎥 Reels</button>
   <button onclick="showTab('stories')">📲 Stories</button>
+  <button onclick="showTab('calendario')">📅 Calendário</button>
   <button onclick="showTab('pro')">💎 Pro</button>
 </nav>
 
 <main>
-  <section id="hoje" class="tab active">
-    <div class="card">
-      <h2>📌 O que postar hoje</h2>
-      <p id="todayPost">Clique no botão</p>
-      <button onclick="gerarPost()">Gerar ideia</button>
-    </div>
-  </section>
 
-  <section id="calendario" class="tab">
-    <div class="card">
-      <h2>📅 Calendário</h2>
-      <ul>
-        <li>Segunda: Bastidores</li>
-        <li>Quarta: Reel</li>
-        <li>Sexta: Oferta</li>
-      </ul>
-    </div>
-  </section>
+<section id="hoje" class="tab active">
+  <div class="card">
+    <h2>📌 O que postar hoje</h2>
+    <p id="todayPost">Clique para gerar</p>
+    <button onclick="gerarHoje()">Gerar conteúdo</button>
+  </div>
+</section>
 
-  <section id="reels" class="tab">
-    <div class="card">
-      <h2>🎥 Reel</h2>
-      <p id="reelIdea">Clique no botão</p>
-      <button onclick="gerarReel()">Gerar reel</button>
-    </div>
-  </section>
+<section id="reels" class="tab">
+  <div class="card">
+    <h2>🎥 Reel estratégico</h2>
+    <p id="reelText">Clique para gerar</p>
+    <button onclick="gerarReel()">Gerar Reel</button>
+  </div>
+</section>
 
-  <section id="stories" class="tab">
-    <div class="card">
-      <h2>📲 Stories</h2>
-      <p id="story">Clique no botão</p>
-      <button onclick="gerarStory()">Gerar story</button>
-    </div>
-  </section>
+<section id="stories" class="tab">
+  <div class="card">
+    <h2>📲 Sequência de Stories</h2>
+    <p id="storyText">Clique para gerar</p>
+    <button onclick="gerarStory()">Gerar Stories</button>
+  </div>
+</section>
 
-  <section id="pro" class="tab">
-    <div class="card">
-      <h2>💎 Pro</h2>
-      <p id="proText">Clique no botão</p>
-      <button onclick="gerarPro()">Gerar Pro</button>
-    </div>
-  </section>
+<section id="calendario" class="tab">
+  <div class="card">
+    <h2>📅 Calendário Inteligente</h2>
+    <ul id="calendar"></ul>
+    <button onclick="gerarCalendario()">Gerar semana</button>
+  </div>
+</section>
+
+<section id="pro" class="tab">
+  <div class="card">
+    <h2>💎 Conteúdo Pro</h2>
+    <p id="proText">Clique para gerar</p>
+    <button onclick="gerarPro()">Gerar Pro</button>
+  </div>
+</section>
+
 </main>
 
 <script>
   function showTab(id) {
-    document.querySelectorAll('.tab').forEach(tab => {
-      tab.classList.remove('active');
-    });
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
     document.getElementById(id).classList.add('active');
   }
 
-  function gerarPost() {
-    document.getElementById("todayPost").innerText =
-      "Mostre o acabamento do bolo em close";
+  const hojeIdeias = [
+    "Foto do bolo finalizado + pergunta: qual sabor você escolheria?",
+    "Story mostrando o preparo + enquete",
+    "Reel com antes e depois do bolo",
+    "Detalhe do acabamento em close",
+    "Cliente retirando o pedido"
+  ];
+
+  const reels = [
+    "Antes e depois do bolo 🎂",
+    "Corte do bolo em câmera lenta",
+    "Montagem acelerada do bolo",
+    "Reação do cliente ao receber",
+    "Erro x acerto na confeitaria"
+  ];
+
+  const stories = [
+    "Story 1: Bastidores\nStory 2: Enquete\nStory 3: CTA pro direct",
+    "Story 1: Massa\nStory 2: Recheio\nStory 3: Final",
+    "Story 1: Pergunta\nStory 2: Resposta\nStory 3: Oferta",
+    "Story 1: Produção\nStory 2: Resultado\nStory 3: Feedback"
+  ];
+
+  const pro = [
+    "Explique porque seu bolo é diferente",
+    "Mostre seu processo profissional",
+    "Fale da qualidade dos ingredientes",
+    "Conte sua história na confeitaria"
+  ];
+
+  function random(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
+  }
+
+  function gerarHoje() {
+    document.getElementById("todayPost").innerText = random(hojeIdeias);
   }
 
   function gerarReel() {
-    document.getElementById("reelIdea").innerText =
-      "Antes e depois do bolo";
+    document.getElementById("reelText").innerText = random(reels);
   }
 
   function gerarStory() {
-    document.getElementById("story").innerText =
-      "Bastidores + enquete";
+    document.getElementById("storyText").innerText = random(stories);
   }
 
   function gerarPro() {
-    document.getElementById("proText").innerText =
-      "Conteúdo estratégico com autoridade";
+    document.getElementById("proText").innerText = random(pro);
+  }
+
+  function gerarCalendario() {
+    const dias = [
+      "Segunda: Story bastidores",
+      "Terça: Foto do bolo",
+      "Quarta: Reel",
+      "Quinta: Story interativo",
+      "Sexta: Oferta",
+      "Sábado: Depoimento",
+      "Domingo: Repost"
+    ];
+    const ul = document.getElementById("calendar");
+    ul.innerHTML = "";
+    dias.forEach(d => {
+      const li = document.createElement("li");
+      li.innerText = d;
+      ul.appendChild(li);
+    });
   }
 </script>
 
 </body>
-    </html>
+  </html>
