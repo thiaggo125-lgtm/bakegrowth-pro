@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>BakeGrowth Ultimate PRO</title>
+<title>BakeGrowth IA PRO</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 body { font-family: Arial, sans-serif; background:#111; color:#fff; margin:0; }
@@ -27,7 +27,7 @@ strong { color:#ff4d6d; }
 <button onclick="showTab('reels')">🎥 Reels</button>
 <button onclick="showTab('stories')">📲 Stories</button>
 <button onclick="showTab('calendario')">📅 Calendário</button>
-<button onclick="showTab('pro')">📊 Análise Perfil</button>
+<button onclick="showTab('pro')">📊 Análise IA</button>
 </nav>
 
 <main>
@@ -67,10 +67,10 @@ strong { color:#ff4d6d; }
 </div>
 </section>
 
-<!-- ANÁLISE -->
+<!-- ANÁLISE IA -->
 <section id="pro" class="tab">
 <div class="card">
-<h2>📊 Análise do Perfil Instagram</h2>
+<h2>📊 Análise do Perfil Instagram - IA</h2>
 
 <label>Seu @Instagram:</label>
 <input id="username" placeholder="Ex: @meuperfil">
@@ -85,17 +85,18 @@ strong { color:#ff4d6d; }
 <label>Engajamento médio:</label>
 <input id="engajamento" type="number" placeholder="Ex: 150">
 
-<h3>Perfis para se espelhar (até 3)</h3>
+<h3>Perfis de referência (até 3)</h3>
 <input id="ref1" placeholder="Ex: @docesdelicia">
 <input id="ref2" placeholder="Ex: @bolosdaana">
 <input id="ref3" placeholder="Ex: @sweetbakery">
 
-<button onclick="analisarPerfilUltimate()">Analisar Perfil + Calendário</button>
+<button onclick="analisarPerfilIA()">Analisar Perfil + Calendário</button>
 
+<h3>Resultados da IA</h3>
+<p id="resultadoAnalise"></p>
 <h3>Histórico de ideias geradas</h3>
 <ul id="historicoList"></ul>
 
-<p id="resultadoAnalise"></p>
 </div>
 </section>
 
@@ -120,7 +121,7 @@ list.appendChild(li);
 }
 atualizarHistorico();
 
-// IA simulada
+// Funções IA simulada
 function gerarHoje(){
 const formatos=["Reel","Story","Foto"];
 const objetivos=["Engajamento","Vendas","Autoridade"];
@@ -138,18 +139,17 @@ atualizarHistorico();
 function gerarReel(){ gerarHoje(); document.getElementById("reelIdea").innerText=document.getElementById("todayPost").innerText; }
 function gerarStory(){ gerarHoje(); document.getElementById("storyIdea").innerText=document.getElementById("todayPost").innerText; }
 
-// Análise
-function analisarPerfilUltimate(){
-const username=document.getElementById("username").value;
-const freq=Number(document.getElementById("frequencia").value);
-const reels=Number(document.getElementById("reels").value);
-const stories=Number(document.getElementById("storiesNum").value);
-const fotos=Number(document.getElementById("fotos").value);
-const eng=Number(document.getElementById("engajamento").value);
+// Análise IA
+function analisarPerfilIA(){
+const username=document.getElementById("username").value || "@meuperfil";
+const freq=Number(document.getElementById("frequencia").value) || 0;
+const reels=Number(document.getElementById("reels").value) || 0;
+const stories=Number(document.getElementById("storiesNum").value) || 0;
+const fotos=Number(document.getElementById("fotos").value) || 0;
+const eng=Number(document.getElementById("engajamento").value) || 0;
 const refs=[document.getElementById("ref1").value,document.getElementById("ref2").value,document.getElementById("ref3").value].filter(r=>r);
 
-let nota=0;
-let recomendacoes=[];
+let nota=0; let recomendacoes=[];
 if(freq>=3) nota+=2; else recomendacoes.push("Poste pelo menos 3x por semana");
 if(reels>=2) nota+=2; else recomendacoes.push("Publique mais Reels");
 if(stories>=3) nota+=1; else recomendacoes.push("Use mais Stories diários");
@@ -190,4 +190,4 @@ navigator.clipboard.writeText(texto).then(()=>alert("Calendário copiado!"));
 </script>
 
 </body>
-</html>
+  </html>
