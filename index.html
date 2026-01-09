@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>BakeGrowth IA Pro 3.0</title>
+<title>BakeGrowth IA Pro 3.1</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 body { font-family: Arial,sans-serif; background:#111; color:#fff; margin:0; }
@@ -36,7 +36,7 @@ strong { color:#ff4d6d; }
 <section id="hoje" class="tab active">
 <div class="card">
 <h2>📌 Ideia de post hoje</h2>
-<p id="todayPost">Clique no botão para gerar</p>
+<p id="todayPost"></p>
 <button onclick="gerarHoje()">Gerar ideia completa</button>
 </div>
 </section>
@@ -45,7 +45,7 @@ strong { color:#ff4d6d; }
 <section id="reels" class="tab">
 <div class="card">
 <h2>🎥 Reel de alto engajamento</h2>
-<p id="reelIdea">Clique no botão</p>
+<p id="reelIdea"></p>
 <button onclick="gerarReel()">Gerar Reel completo</button>
 </div>
 </section>
@@ -54,7 +54,7 @@ strong { color:#ff4d6d; }
 <section id="stories" class="tab">
 <div class="card">
 <h2>📲 Story interativo</h2>
-<p id="storyIdea">Clique no botão</p>
+<p id="storyIdea"></p>
 <button onclick="gerarStory()">Gerar Story completo</button>
 </div>
 </section>
@@ -74,28 +74,28 @@ strong { color:#ff4d6d; }
 <h2>📊 Análise do Perfil Instagram - IA</h2>
 
 <label>Seu @Instagram:</label>
-<input id="username" placeholder="Ex: @meuperfil">
+<input id="username" placeholder="Ex: @meuperfil" value="@meuperfil">
 <label>Posts/semana:</label>
-<input id="frequencia" type="number" placeholder="Ex: 3">
+<input id="frequencia" type="number" value="3">
 <label>Reels/semana:</label>
-<input id="reels" type="number" placeholder="Ex: 2">
+<input id="reels" type="number" value="2">
 <label>Stories/semana:</label>
-<input id="storiesNum" type="number" placeholder="Ex: 5">
+<input id="storiesNum" type="number" value="5">
 <label>Fotos/semana:</label>
-<input id="fotos" type="number" placeholder="Ex: 3">
+<input id="fotos" type="number" value="3">
 <label>Engajamento médio:</label>
-<input id="engajamento" type="number" placeholder="Ex: 150">
+<input id="engajamento" type="number" value="150">
 
 <h3>Perfis de referência (até 3)</h3>
-<input id="ref1" placeholder="Ex: @docesdelicia">
-<input id="ref2" placeholder="Ex: @bolosdaana">
-<input id="ref3" placeholder="Ex: @sweetbakery">
+<input id="ref1" placeholder="Ex: @docesdelicia" value="@docesdelicia">
+<input id="ref2" placeholder="Ex: @bolosdaana" value="@bolosdaana">
+<input id="ref3" placeholder="Ex: @sweetbakery" value="@sweetbakery">
 
 <h3>Modo de análise:</h3>
 <select id="modoAnalise">
 <option value="perfil">Só meu perfil</option>
 <option value="referencia">Só perfis de referência</option>
-<option value="combinado">Combinado</option>
+<option value="combinado" selected>Combinado</option>
 </select>
 
 <button onclick="analisarPerfilIA()">Analisar Perfil + Calendário</button>
@@ -118,7 +118,7 @@ document.getElementById(id).classList.add('active');
 }
 
 // Histórico de ideias
-let historico = JSON.parse(localStorage.getItem("historicoBake")) || [];
+let historico = [];
 function atualizarHistorico(){
 const list=document.getElementById("historicoList");
 list.innerHTML="";
@@ -128,9 +128,8 @@ li.innerText=item;
 list.appendChild(li);
 });
 }
-atualizarHistorico();
 
-// Funções de conteúdo com horários, hashtags e CTAs
+// Funções de conteúdo
 function gerarHoje(){
 const formatos=["Reel","Story","Foto"];
 const objetivos=["Engajamento","Vendas","Autoridade"];
@@ -157,14 +156,14 @@ document.getElementById("reelIdea").innerText=ideia;
 document.getElementById("storyIdea").innerText=ideia;
 
 historico.push(ideia);
-localStorage.setItem("historicoBake",JSON.stringify(historico));
 atualizarHistorico();
 }
 
+// Funções simplificadas
 function gerarReel(){ gerarHoje(); }
 function gerarStory(){ gerarHoje(); }
 
-// Análise IA avançada
+// Análise IA inicial
 function analisarPerfilIA(){
 const modo=document.getElementById("modoAnalise").value;
 const username=document.getElementById("username").value||"@meuperfil";
@@ -192,7 +191,7 @@ const hashtags=["#confeitaria","#bolosartesanais","#doces","#cake","#sweet","#bo
 hashtagsSugeridas=hashtags.sort(()=>0.5-Math.random()).slice(0,5).join(" ");
 }
 
-// Gera calendário com horários aleatórios
+// Calendário automático
 const dias=["Segunda","Terça","Quarta","Quinta","Sexta","Sábado","Domingo"];
 let calendario=[];
 for(let i=0;i<7;i++){
@@ -216,6 +215,7 @@ document.getElementById("resultadoAnalise").innerHTML=
 <strong>Recomendações:</strong><br>• ${recomendacoes.join("<br>• ")}<br>
 <strong>${inspiracao}</strong><br>
 <strong>Hashtags sugeridas:</strong> ${hashtagsSugeridas}`;
+
 }
 
 // Copiar calendário
@@ -223,6 +223,13 @@ function exportarCalendario(){
 const texto=document.getElementById("calendarList").innerText;
 navigator.clipboard.writeText(texto).then(()=>alert("Calendário copiado!"));
 }
+
+// Auto-gerar na abertura da página
+window.onload=function(){
+gerarHoje();
+analisarPerfilIA();
+};
 </script>
+
 </body>
-  </html>
+</html>
