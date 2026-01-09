@@ -2,16 +2,16 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>BakeGrowth IA Realista</title>
+<title>BakeGrowth IA Pro</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-body { font-family: Arial, sans-serif; background:#111; color:#fff; margin:0; }
+body { font-family: Arial,sans-serif; background:#111; color:#fff; margin:0; }
 .tabs { display:flex; gap:6px; padding:10px; background:#1a1a1a; position:sticky; top:0; z-index:10; }
 .tabs button { flex:1; padding:10px; background:#222; color:#fff; border:none; border-radius:8px; cursor:pointer; transition:0.2s; }
 .tabs button:hover { background:#ff4d6d; }
 .tab { display:none; padding:15px; }
 .tab.active { display:block; }
-.card { background:#1c1c1c; padding:15px; margin-bottom:15px; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.5); color:#fff; }
+.card { background:#1c1c1c; padding:15px; margin-bottom:15px; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.5); }
 button { background:#ff4d6d; color:#fff; border:none; padding:12px; border-radius:10px; cursor:pointer; width:100%; font-size:16px; margin-top:10px; transition:0.2s; }
 button:hover { background:#ff6a85; }
 input, textarea, select { width:100%; padding:10px; margin-top:5px; margin-bottom:10px; border-radius:6px; border:none; background:#333; color:#fff; }
@@ -129,8 +129,15 @@ const objetivos=["Engajamento","Vendas","Autoridade"];
 const ideias=["Antes e depois do bolo","Detalhe do acabamento em close","Corte do bolo em câmera lenta","Cliente retirando o pedido","Bastidores da produção"];
 const roteiros=["Mostre o bolo simples → transição → bolo final","Close no acabamento com música suave","Processo acelerado do preparo","Reação do cliente ao ver o bolo","Corte lento mostrando recheio"];
 const ctas=["Qual sabor você escolheria?","Comenta 🍰 se gostou","Chama no direct pra encomendar","Salva esse post","Marca alguém que ama doce"];
+const hashtags=["#confeitaria","#bolosartesanais","#doces","#cake","#sweet","#bolo","#bake","#cakeporn","#receita","#decoracao"];
+
 const r=arr=>arr[Math.floor(Math.random()*arr.length)];
-const ideia=`Formato: ${r(formatos)}\nObjetivo: ${r(objetivos)}\nIdeia: ${r(ideias)}\nRoteiro: ${r(roteiros)}\nCTA: ${r(ctas)}`;
+const ideia=`Formato: ${r(formatos)}
+Objetivo: ${r(objetivos)}
+Ideia: ${r(ideias)}
+Roteiro: ${r(roteiros)}
+CTA: ${r(ctas)}
+Hashtags: ${r(hashtags)} ${r(hashtags)} ${r(hashtags)}`;
 document.getElementById("todayPost").innerText=ideia;
 historico.push(ideia);
 localStorage.setItem("historicoBake",JSON.stringify(historico));
@@ -140,7 +147,7 @@ atualizarHistorico();
 function gerarReel(){ gerarHoje(); document.getElementById("reelIdea").innerText=document.getElementById("todayPost").innerText; }
 function gerarStory(){ gerarHoje(); document.getElementById("storyIdea").innerText=document.getElementById("todayPost").innerText; }
 
-// Simulação de análise IA
+// Simulação de análise IA com perfis de referência e hashtags
 function analisarPerfilIA(){
 const username=document.getElementById("username").value || "@meuperfil";
 const freq=Number(document.getElementById("frequencia").value) || 0;
@@ -171,6 +178,9 @@ document.getElementById("calendarList").innerHTML=calendario.map(c=>`<li>${c}</l
 let inspiracao="";
 if(refs.length>0){ inspiracao=`Perfis para se inspirar: ${refs.join(", ")}`; }
 
+let hashtags=["#confeitaria","#bolosartesanais","#doces","#cake","#sweet","#bolo","#bake","#cakeporn","#receita","#decoracao"];
+let hashtagsSugeridas=hashtags.sort(()=>0.5-Math.random()).slice(0,5).join(" ");
+
 document.getElementById("resultadoAnalise").innerHTML=
 `<strong>@:</strong> ${username}<br>
 <strong>Posts/semana:</strong> ${freq}<br>
@@ -180,7 +190,8 @@ document.getElementById("resultadoAnalise").innerHTML=
 <strong>Engajamento médio:</strong> ${eng}<br>
 <strong>Nota do perfil:</strong> ${nota}/8<br>
 <strong>Recomendações:</strong><br>• ${recomendacoes.join("<br>• ")}<br>
-<strong>${inspiracao}</strong>`;
+<strong>${inspiracao}</strong><br>
+<strong>Hashtags sugeridas:</strong> ${hashtagsSugeridas}`;
 }
 
 // Copiar calendário
