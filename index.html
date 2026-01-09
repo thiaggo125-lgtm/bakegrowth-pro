@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>BakeGrowth IA Pro 4.2 - Simulação Visual</title>
+<title>BakeGrowth IA Pro 4.3 - Visual Real</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 body { font-family: Arial,sans-serif; background:#111; color:#fff; margin:0; }
@@ -18,9 +18,9 @@ input, textarea, select { width:100%; padding:10px; margin-top:5px; margin-botto
 input::placeholder, textarea::placeholder { color:#ccc; }
 p, ul { line-height:1.4; }
 strong { color:#ff4d6d; }
-.mockup { background:#222; border:1px dashed #ff4d6d; padding:10px; margin-top:8px; border-radius:8px; }
+.mockup { background:#222; border:1px dashed #ff4d6d; padding:10px; margin-top:8px; border-radius:8px; text-align:center; }
 .mockup h4 { margin:5px 0; color:#ff6a85; font-size:14px; }
-.mockup p { font-size:13px; color:#ccc; }
+.mockup img { width:100%; border-radius:8px; margin-top:5px; }
 </style>
 </head>
 <body>
@@ -142,7 +142,7 @@ list.appendChild(li);
 });
 }
 
-// Funções de conteúdo com mockups visuais
+// Funções de conteúdo com imagens simuladas
 function gerarHoje(){
 const formatos=["Reel","Story","Foto"];
 const objetivos=["Engajamento","Vendas","Autoridade"];
@@ -156,12 +156,7 @@ const hashtags={
 };
 const r=arr=>arr[Math.floor(Math.random()*arr.length)];
 let formato=r(formatos);
-let ideia=`Formato: ${formato}
-Objetivo: ${r(objetivos)}
-Ideia: ${r(ideias)}
-Roteiro: ${r(roteiros)}
-CTA: ${r(ctas)}
-Hashtags: ${hashtags[formato].sort(()=>0.5-Math.random()).slice(0,5).join(" ")}`;
+let ideia=`Formato: ${formato}\nObjetivo: ${r(objetivos)}\nIdeia: ${r(ideias)}\nRoteiro: ${r(roteiros)}\nCTA: ${r(ctas)}\nHashtags: ${hashtags[formato].sort(()=>0.5-Math.random()).slice(0,5).join(" ")}`;
 document.getElementById("todayPost").innerText=ideia;
 historico.push(ideia);
 atualizarHistorico();
@@ -170,14 +165,16 @@ gerarFotos();
 gerarStories();
 }
 
-// Funções para 3 sugestões com mockup
+// Funções para 3 sugestões com imagens simuladas
 function gerarReels(){
 const container=document.getElementById("reelList");
 container.innerHTML="";
 for(let i=0;i<3;i++){
 let div=document.createElement("div");
 div.className="mockup";
-div.innerHTML=`<h4>Reel ${i+1}</h4><p>${document.getElementById("todayPost").innerText}</p>`;
+div.innerHTML=`<h4>Reel ${i+1}</h4>
+<img src="https://via.placeholder.com/300x500/ff4d6d/111?text=Reel+${i+1}" alt="Reel ${i+1}">
+<p>${document.getElementById("todayPost").innerText}</p>`;
 container.appendChild(div);
 }
 }
@@ -187,7 +184,9 @@ container.innerHTML="";
 for(let i=0;i<3;i++){
 let div=document.createElement("div");
 div.className="mockup";
-div.innerHTML=`<h4>Foto ${i+1}</h4><p>${document.getElementById("todayPost").innerText}</p>`;
+div.innerHTML=`<h4>Foto ${i+1}</h4>
+<img src="https://via.placeholder.com/300x300/ff4d6d/111?text=Foto+${i+1}" alt="Foto ${i+1}">
+<p>${document.getElementById("todayPost").innerText}</p>`;
 container.appendChild(div);
 }
 }
@@ -197,7 +196,9 @@ container.innerHTML="";
 for(let i=0;i<3;i++){
 let div=document.createElement("div");
 div.className="mockup";
-div.innerHTML=`<h4>Story ${i+1}</h4><p>${document.getElementById("todayPost").innerText}</p>`;
+div.innerHTML=`<h4>Story ${i+1}</h4>
+<img src="https://via.placeholder.com/300x500/ff4d6d/111?text=Story+${i+1}" alt="Story ${i+1}">
+<p>${document.getElementById("todayPost").innerText}</p>`;
 container.appendChild(div);
 }
 }
@@ -265,4 +266,4 @@ analisarPerfilIA();
 </script>
 
 </body>
-  </html>
+</html>
