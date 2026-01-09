@@ -181,6 +181,52 @@
     });
   }
 </script>
+<script>
+  function showTab(id) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+  }
 
+  function gerarHoje() {
+    const formatos = ["Reel", "Story", "Foto"];
+    const objetivos = ["Engajamento", "Vendas", "Autoridade"];
+
+    const ideias = [
+      "Antes e depois do bolo",
+      "Detalhe do acabamento em close",
+      "Bastidores da produção",
+      "Cliente retirando o pedido",
+      "Corte do bolo em câmera lenta"
+    ];
+
+    const roteiros = [
+      "Mostre o bolo simples → transição → bolo final",
+      "Close no acabamento com música suave",
+      "Processo acelerado do preparo",
+      "Reação do cliente ao ver o bolo",
+      "Corte lento mostrando recheio"
+    ];
+
+    const ctas = [
+      "Qual sabor você escolheria?",
+      "Comenta 🍰 se gostou",
+      "Chama no direct pra encomendar",
+      "Salva esse post",
+      "Marca alguém que ama doce"
+    ];
+
+    function r(arr) {
+      return arr[Math.floor(Math.random() * arr.length)];
+    }
+
+    document.getElementById("todayPost").innerHTML = `
+      <strong>Formato:</strong> ${r(formatos)}<br><br>
+      <strong>Objetivo:</strong> ${r(objetivos)}<br><br>
+      <strong>Ideia:</strong> ${r(ideias)}<br><br>
+      <strong>Roteiro:</strong> ${r(roteiros)}<br><br>
+      <strong>CTA:</strong> ${r(ctas)}
+    `;
+  }
+</script>
 </body>
   </html>
