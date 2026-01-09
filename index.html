@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>BakeGrowth Pro</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="tabs">
+  <button onclick="showTab('hoje')">🏠 Hoje</button>
+  <button onclick="showTab('calendario')">📅 Calendário</button>
+  <button onclick="showTab('reels')">🎥 Reels</button>
+  <button onclick="showTab('stories')">📲 Stories</button>
+  <button onclick="showTab('pro')">💎 Pro</button>
+</nav>
+
+<main>
+  <section id="hoje" class="tab active">
+    <div class="card">
+      <h2>📌 O que postar hoje</h2>
+      <p id="todayPost"></p>
+      <button onclick="gerarPost()">Gerar ideia</button>
+    </div>
+
+    <div class="card">
+      <h2>📲 Story automático</h2>
+      <p id="story"></p>
+      <button onclick="gerarStory()">Gerar story</button>
+    </div>
+  </section>
+
+  <section id="calendario" class="tab">
+    <div class="card">
+      <h2>📅 Calendário semanal</h2>
+      <ul id="calendarList"></ul>
+    </div>
+  </section>
+
+  <section id="reels" class="tab">
+    <div class="card">
+      <h2>🎥 Reels de alto engajamento</h2>
+      <p id="reelIdea"></p>
+      <button onclick="gerarReel()">Gerar reel</button>
+    </div>
+  </section>
+
+  <section id="stories" class="tab">
+    <div class="card">
+      <h2>📲 Stories interativos</h2>
+      <p id="storyPro"></p>
+      <button onclick="gerarStoryPro()">Gerar story</button>
+    </div>
+  </section>
+
+  <section id="pro" class="tab">
+    <div class="card">
+      <h2>
