@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>BakeGrowth IA PRO</title>
+<title>BakeGrowth IA Realista</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 body { font-family: Arial, sans-serif; background:#111; color:#fff; margin:0; }
@@ -103,12 +103,13 @@ strong { color:#ff4d6d; }
 </main>
 
 <script>
+// Alterna abas
 function showTab(id){
 document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
 document.getElementById(id).classList.add('active');
 }
 
-// Histórico
+// Histórico de ideias
 let historico = JSON.parse(localStorage.getItem("historicoBake")) || [];
 function atualizarHistorico(){
 const list=document.getElementById("historicoList");
@@ -121,7 +122,7 @@ list.appendChild(li);
 }
 atualizarHistorico();
 
-// Funções IA simulada
+// Funções de conteúdo inteligente
 function gerarHoje(){
 const formatos=["Reel","Story","Foto"];
 const objetivos=["Engajamento","Vendas","Autoridade"];
@@ -139,7 +140,7 @@ atualizarHistorico();
 function gerarReel(){ gerarHoje(); document.getElementById("reelIdea").innerText=document.getElementById("todayPost").innerText; }
 function gerarStory(){ gerarHoje(); document.getElementById("storyIdea").innerText=document.getElementById("todayPost").innerText; }
 
-// Análise IA
+// Simulação de análise IA
 function analisarPerfilIA(){
 const username=document.getElementById("username").value || "@meuperfil";
 const freq=Number(document.getElementById("frequencia").value) || 0;
@@ -182,7 +183,7 @@ document.getElementById("resultadoAnalise").innerHTML=
 <strong>${inspiracao}</strong>`;
 }
 
-// Exportar calendário
+// Copiar calendário
 function exportarCalendario(){
 const texto=document.getElementById("calendarList").innerText;
 navigator.clipboard.writeText(texto).then(()=>alert("Calendário copiado!"));
@@ -190,4 +191,4 @@ navigator.clipboard.writeText(texto).then(()=>alert("Calendário copiado!"));
 </script>
 
 </body>
-  </html>
+</html>
