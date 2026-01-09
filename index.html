@@ -24,9 +24,9 @@ strong { color:#ff4d6d; }
 
 <nav class="tabs">
 <button onclick="showTab('hoje')">🏠 Hoje</button>
-<button onclick="showTab('calendario')">📅 Calendário</button>
 <button onclick="showTab('reels')">🎥 Reels</button>
 <button onclick="showTab('stories')">📲 Stories</button>
+<button onclick="showTab('calendario')">📅 Calendário</button>
 <button onclick="showTab('pro')">📊 Análise Perfil</button>
 </nav>
 
@@ -37,15 +37,6 @@ strong { color:#ff4d6d; }
 <h2>📌 Ideia de post hoje</h2>
 <p id="todayPost">Clique no botão para gerar</p>
 <button onclick="gerarHoje()">Gerar ideia completa</button>
-</div>
-</section>
-
-<!-- CALENDÁRIO -->
-<section id="calendario" class="tab">
-<div class="card">
-<h2>📅 Calendário semanal sugerido</h2>
-<ul id="calendarList"></ul>
-<button onclick="exportarCalendario()">📋 Copiar calendário</button>
 </div>
 </section>
 
@@ -67,27 +58,31 @@ strong { color:#ff4d6d; }
 </div>
 </section>
 
+<!-- CALENDÁRIO -->
+<section id="calendario" class="tab">
+<div class="card">
+<h2>📅 Calendário semanal sugerido</h2>
+<ul id="calendarList"></ul>
+<button onclick="exportarCalendario()">📋 Copiar calendário</button>
+</div>
+</section>
+
 <!-- ANÁLISE -->
 <section id="pro" class="tab">
 <div class="card">
-<h2>📊 Análise do Perfil Instagram - Ultimate PRO</h2>
+<h2>📊 Análise do Perfil Instagram</h2>
 
 <label>Seu @Instagram:</label>
 <input id="username" placeholder="Ex: @meuperfil">
-
-<label>Número de posts por semana:</label>
+<label>Posts/semana:</label>
 <input id="frequencia" type="number" placeholder="Ex: 3">
-
-<label>Número de Reels:</label>
+<label>Reels/semana:</label>
 <input id="reels" type="number" placeholder="Ex: 2">
-
-<label>Número de Stories:</label>
+<label>Stories/semana:</label>
 <input id="storiesNum" type="number" placeholder="Ex: 5">
-
-<label>Posts de foto:</label>
+<label>Fotos/semana:</label>
 <input id="fotos" type="number" placeholder="Ex: 3">
-
-<label>Média de engajamento (curtidas/comentários):</label>
+<label>Engajamento médio:</label>
 <input id="engajamento" type="number" placeholder="Ex: 150">
 
 <h3>Perfis para se espelhar (até 3)</h3>
@@ -103,6 +98,7 @@ strong { color:#ff4d6d; }
 <p id="resultadoAnalise"></p>
 </div>
 </section>
+
 </main>
 
 <script>
@@ -111,27 +107,8 @@ document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
 document.getElementById(id).classList.add('active');
 }
 
-// Histórico no navegador
+// Histórico
 let historico = JSON.parse(localStorage.getItem("historicoBake")) || [];
-
-// Funções IA simulada
-function gerarHoje(){
-const formatos=["Reel","Story","Foto"];
-const objetivos=["Engajamento","Vendas","Autoridade"];
-const ideias=["Antes e depois do bolo","Detalhe do acabamento em close","Corte do bolo em câmera lenta","Cliente retirando o pedido","Bastidores da produção"];
-const roteiros=["Mostre o bolo simples → transição → bolo final","Close no acabamento com música suave","Processo acelerado do preparo","Reação do cliente ao ver o bolo","Corte lento mostrando recheio"];
-const ctas=["Qual sabor você escolheria?","Comenta 🍰 se gostou","Chama no direct pra encomendar","Salva esse post","Marca alguém que ama doce"];
-const r=arr=>arr[Math.floor(Math.random()*arr.length)];
-const ideia=`Formato: ${r(formatos)}, Objetivo: ${r(objetivos)}, Ideia: ${r(ideias)}, Roteiro: ${r(roteiros)}, CTA: ${r(ctas)}`;
-document.getElementById("todayPost").innerHTML=ideia;
-historico.push(ideia);
-localStorage.setItem("historicoBake",JSON.stringify(historico));
-atualizarHistorico();
-}
-
-function gerarReel(){ gerarHoje(); document.getElementById("reelIdea").innerHTML=document.getElementById("todayPost").innerHTML; }
-function gerarStory(){ gerarHoje(); document.getElementById("storyIdea").innerHTML=document.getElementById("todayPost").innerHTML; }
-
 function atualizarHistorico(){
 const list=document.getElementById("historicoList");
 list.innerHTML="";
@@ -143,7 +120,25 @@ list.appendChild(li);
 }
 atualizarHistorico();
 
-// Análise Ultimate PRO
+// IA simulada
+function gerarHoje(){
+const formatos=["Reel","Story","Foto"];
+const objetivos=["Engajamento","Vendas","Autoridade"];
+const ideias=["Antes e depois do bolo","Detalhe do acabamento em close","Corte do bolo em câmera lenta","Cliente retirando o pedido","Bastidores da produção"];
+const roteiros=["Mostre o bolo simples → transição → bolo final","Close no acabamento com música suave","Processo acelerado do preparo","Reação do cliente ao ver o bolo","Corte lento mostrando recheio"];
+const ctas=["Qual sabor você escolheria?","Comenta 🍰 se gostou","Chama no direct pra encomendar","Salva esse post","Marca alguém que ama doce"];
+const r=arr=>arr[Math.floor(Math.random()*arr.length)];
+const ideia=`Formato: ${r(formatos)}\nObjetivo: ${r(objetivos)}\nIdeia: ${r(ideias)}\nRoteiro: ${r(roteiros)}\nCTA: ${r(ctas)}`;
+document.getElementById("todayPost").innerText=ideia;
+historico.push(ideia);
+localStorage.setItem("historicoBake",JSON.stringify(historico));
+atualizarHistorico();
+}
+
+function gerarReel(){ gerarHoje(); document.getElementById("reelIdea").innerText=document.getElementById("todayPost").innerText; }
+function gerarStory(){ gerarHoje(); document.getElementById("storyIdea").innerText=document.getElementById("todayPost").innerText; }
+
+// Análise
 function analisarPerfilUltimate(){
 const username=document.getElementById("username").value;
 const freq=Number(document.getElementById("frequencia").value);
@@ -158,9 +153,9 @@ let recomendacoes=[];
 if(freq>=3) nota+=2; else recomendacoes.push("Poste pelo menos 3x por semana");
 if(reels>=2) nota+=2; else recomendacoes.push("Publique mais Reels");
 if(stories>=3) nota+=1; else recomendacoes.push("Use mais Stories diários");
-if(fotos>=2) nota+=1; else recomendacoes.push("Use fotos de qualidade para engajar");
+if(fotos>=2) nota+=1; else recomendacoes.push("Use fotos de qualidade");
 if(eng>=100) nota+=2; else recomendacoes.push("Tente aumentar engajamento com CTAs");
-if(nota>=7) recomendacoes.push("Seu perfil está bem posicionado! Foque em conversão");
+if(nota>=7) recomendacoes.push("Seu perfil está bem posicionado!");
 
 const dias=["Segunda","Terça","Quarta","Quinta","Sexta","Sábado","Domingo"];
 let calendario=[];
@@ -168,15 +163,15 @@ for(let i=0;i<7;i++){
 let tipo="Foto";
 if(i%2==0 && reels>0){ tipo="Reel"; }
 else if(i%3==0 && stories>0){ tipo="Story"; }
-calendario.push(`${dias[i]}: ${tipo} (9h)`); // hora sugerida
+calendario.push(`${dias[i]}: ${tipo} (9h)`); 
 }
+document.getElementById("calendarList").innerHTML=calendario.map(c=>`<li>${c}</li>`).join("");
 
 let inspiracao="";
-if(refs.length>0){ inspiracao=`Perfis para se inspirar: ${refs.join(", ")}.`; }
+if(refs.length>0){ inspiracao=`Perfis para se inspirar: ${refs.join(", ")}`; }
 
-document.getElementById("calendarList").innerHTML=calendario.map(c=>`<li>${c}</li>`).join("");
-document.getElementById("resultadoAnalise").innerHTML=`
-<strong>@:</strong> ${username}<br>
+document.getElementById("resultadoAnalise").innerHTML=
+`<strong>@:</strong> ${username}<br>
 <strong>Posts/semana:</strong> ${freq}<br>
 <strong>Reels:</strong> ${reels}<br>
 <strong>Stories:</strong> ${stories}<br>
@@ -184,16 +179,15 @@ document.getElementById("resultadoAnalise").innerHTML=`
 <strong>Engajamento médio:</strong> ${eng}<br>
 <strong>Nota do perfil:</strong> ${nota}/8<br>
 <strong>Recomendações:</strong><br>• ${recomendacoes.join("<br>• ")}<br>
-<strong>${inspiracao}</strong>
-`;
+<strong>${inspiracao}</strong>`;
 }
 
 // Exportar calendário
 function exportarCalendario(){
-const texto = document.getElementById("calendarList").innerText;
+const texto=document.getElementById("calendarList").innerText;
 navigator.clipboard.writeText(texto).then(()=>alert("Calendário copiado!"));
 }
 </script>
 
 </body>
-  </html>
+</html>
