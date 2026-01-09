@@ -8,8 +8,8 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #181818; /* escuro mas não preto total */
-      color: #eee; /* texto claro */
+      background: #111; /* fundo preto total */
+      color: #fff;
       margin: 0;
     }
 
@@ -17,13 +17,16 @@
       display: flex;
       gap: 6px;
       padding: 10px;
-      background: #222;
+      background: #1a1a1a;
+      position: sticky;
+      top: 0;
+      z-index: 10;
     }
 
     .tabs button {
       flex: 1;
       padding: 10px;
-      background: #333;
+      background: #222;
       color: #fff;
       border: none;
       border-radius: 8px;
@@ -45,9 +48,9 @@
     }
 
     .card {
-      background: #2a2a2a;
+      background: #1c1c1c;
       padding: 15px;
-      margin-bottom: 12px;
+      margin-bottom: 15px;
       border-radius: 12px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.5);
     }
@@ -76,7 +79,7 @@
       margin-bottom: 10px;
       border-radius: 6px;
       border: none;
-      background: #3a3a3a;
+      background: #333;
       color: #fff;
     }
 
@@ -86,6 +89,10 @@
 
     p {
       line-height: 1.4;
+    }
+
+    strong {
+      color: #ff4d6d;
     }
   </style>
 </head>
@@ -105,9 +112,9 @@
   <!-- HOJE -->
   <section id="hoje" class="tab active">
     <div class="card">
-      <h2>📌 O que postar hoje</h2>
-      <p id="todayPost">Clique no botão</p>
-      <button onclick="gerarHoje()">Gerar ideia</button>
+      <h2>📌 Ideia de post hoje</h2>
+      <p id="todayPost">Clique no botão para gerar</p>
+      <button onclick="gerarHoje()">Gerar ideia completa</button>
     </div>
   </section>
 
@@ -115,7 +122,7 @@
   <section id="calendario" class="tab">
     <div class="card">
       <h2>📅 Calendário semanal</h2>
-      <ul>
+      <ul id="calendarList">
         <li>Segunda: Bastidores</li>
         <li>Terça: Story interativo</li>
         <li>Quarta: Reel</li>
@@ -128,18 +135,18 @@
   <!-- REELS -->
   <section id="reels" class="tab">
     <div class="card">
-      <h2>🎥 Reel</h2>
+      <h2>🎥 Reel de alto engajamento</h2>
       <p id="reelIdea">Clique no botão</p>
-      <button onclick="gerarReel()">Gerar reel</button>
+      <button onclick="gerarReel()">Gerar Reel completo</button>
     </div>
   </section>
 
   <!-- STORIES -->
   <section id="stories" class="tab">
     <div class="card">
-      <h2>📲 Stories</h2>
+      <h2>📲 Story interativo</h2>
       <p id="storyIdea">Clique no botão</p>
-      <button onclick="gerarStory()">Gerar story</button>
+      <button onclick="gerarStory()">Gerar Story completo</button>
     </div>
   </section>
 
@@ -181,6 +188,8 @@
   }
 
   function gerarHoje() {
+    const formatos = ["Reel","Story","Foto"];
+    const objetivos = ["Engajamento","Vendas","Autoridade"];
     const ideias = [
       "Antes e depois do bolo",
       "Detalhe do acabamento em close",
@@ -188,18 +197,40 @@
       "Cliente retirando o pedido",
       "Bastidores da produção"
     ];
-    document.getElementById("todayPost").innerText =
-      ideias[Math.floor(Math.random() * ideias.length)];
+    const roteiros = [
+      "Mostre o bolo simples → transição → bolo final",
+      "Close no acabamento com música suave",
+      "Processo acelerado do preparo",
+      "Reação do cliente ao ver o bolo",
+      "Corte lento mostrando recheio"
+    ];
+    const ctas = [
+      "Qual sabor você escolheria?",
+      "Comenta 🍰 se gostou",
+      "Chama no direct pra encomendar",
+      "Salva esse post",
+      "Marca alguém que ama doce"
+    ];
+
+    function r(arr){return arr[Math.floor(Math.random()*arr.length)];}
+
+    document.getElementById("todayPost").innerHTML = `
+      <strong>Formato:</strong> ${r(formatos)}<br>
+      <strong>Objetivo:</strong> ${r(objetivos)}<br>
+      <strong>Ideia:</strong> ${r(ideias)}<br>
+      <strong>Roteiro:</strong> ${r(roteiros)}<br>
+      <strong>CTA:</strong> ${r(ctas)}
+    `;
   }
 
-  function gerarReel() {
-    document.getElementById("reelIdea").innerText =
-      "Reel com transformação + música em alta";
+  function gerarReel(){
+    gerarHoje(); 
+    document.getElementById("reelIdea").innerHTML = document.getElementById("todayPost").innerHTML;
   }
 
-  function gerarStory() {
-    document.getElementById("storyIdea").innerText =
-      "Mostre bastidores + enquete";
+  function gerarStory(){
+    gerarHoje(); 
+    document.getElementById("storyIdea").innerHTML = document.getElementById("todayPost").innerHTML;
   }
 
   function analisarPerfil() {
@@ -237,4 +268,4 @@
 </script>
 
 </body>
-          </html>
+</html>
