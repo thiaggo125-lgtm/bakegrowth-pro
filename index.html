@@ -5,8 +5,56 @@
   <title>BakeGrowth Pro</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: #fff;
+      margin: 0;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 5px;
+      padding: 10px;
+      background: #1e1e1e;
+    }
+
+    .tabs button {
+      flex: 1;
+      padding: 10px;
+      background: #333;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .tab {
+      display: none;
+      padding: 15px;
+    }
+
+    .tab.active {
+      display: block;
+    }
+
+    .card {
+      background: #1c1c1c;
+      padding: 15px;
+      margin-bottom: 12px;
+      border-radius: 10px;
+    }
+
+    button {
+      background: #ff4d6d;
+      color: #fff;
+      border: none;
+      padding: 10px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 
 <body>
@@ -20,61 +68,78 @@
 </nav>
 
 <main>
-
-  <!-- HOJE -->
   <section id="hoje" class="tab active">
     <div class="card">
       <h2>📌 O que postar hoje</h2>
-      <p id="todayPost"></p>
+      <p id="todayPost">Clique no botão</p>
       <button onclick="gerarPost()">Gerar ideia</button>
     </div>
-
-    <div class="card">
-      <h2>📲 Story automático</h2>
-      <p id="story"></p>
-      <button onclick="gerarStory()">Gerar story</button>
-    </div>
   </section>
 
-  <!-- CALENDÁRIO -->
   <section id="calendario" class="tab">
     <div class="card">
-      <h2>📅 Calendário semanal</h2>
-      <ul id="calendarList"></ul>
+      <h2>📅 Calendário</h2>
+      <ul>
+        <li>Segunda: Bastidores</li>
+        <li>Quarta: Reel</li>
+        <li>Sexta: Oferta</li>
+      </ul>
     </div>
   </section>
 
-  <!-- REELS -->
   <section id="reels" class="tab">
     <div class="card">
-      <h2>🎥 Reels de alto engajamento</h2>
-      <p id="reelIdea"></p>
+      <h2>🎥 Reel</h2>
+      <p id="reelIdea">Clique no botão</p>
       <button onclick="gerarReel()">Gerar reel</button>
     </div>
   </section>
 
-  <!-- STORIES -->
   <section id="stories" class="tab">
     <div class="card">
-      <h2>📲 Stories interativos</h2>
-      <p id="storyPro"></p>
-      <button onclick="gerarStoryPro()">Gerar story</button>
+      <h2>📲 Stories</h2>
+      <p id="story">Clique no botão</p>
+      <button onclick="gerarStory()">Gerar story</button>
     </div>
   </section>
 
-  <!-- PRO -->
   <section id="pro" class="tab">
     <div class="card">
-      <h2>💎 Modo Pro</h2>
-      <p id="proText"></p>
-      <button onclick="gerarPro()">Gerar conteúdo Pro</button>
+      <h2>💎 Pro</h2>
+      <p id="proText">Clique no botão</p>
+      <button onclick="gerarPro()">Gerar Pro</button>
     </div>
   </section>
-
 </main>
 
-<!-- JS (SEMPRE NO FINAL) -->
-<script src="script.js"></script>
+<script>
+  function showTab(id) {
+    document.querySelectorAll('.tab').forEach(tab => {
+      tab.classList.remove('active');
+    });
+    document.getElementById(id).classList.add('active');
+  }
+
+  function gerarPost() {
+    document.getElementById("todayPost").innerText =
+      "Mostre o acabamento do bolo em close";
+  }
+
+  function gerarReel() {
+    document.getElementById("reelIdea").innerText =
+      "Antes e depois do bolo";
+  }
+
+  function gerarStory() {
+    document.getElementById("story").innerText =
+      "Bastidores + enquete";
+  }
+
+  function gerarPro() {
+    document.getElementById("proText").innerText =
+      "Conteúdo estratégico com autoridade";
+  }
+</script>
 
 </body>
-                                                 </html>
+    </html>
