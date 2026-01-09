@@ -36,3 +36,11 @@ button {
 button:hover {
   opacity: 0.9;
   }
+/* CONTROLE DAS ABAS */
+.tab {
+  display: none;
+}
+
+.tab.active {
+  display: block;
+}
