@@ -15,11 +15,9 @@
 
     .tabs {
       display: flex;
-      gap: 6px;
+      gap: 5px;
       padding: 10px;
       background: #1e1e1e;
-      position: sticky;
-      top: 0;
     }
 
     .tabs button {
@@ -28,9 +26,8 @@
       background: #333;
       color: #fff;
       border: none;
-      border-radius: 8px;
+      border-radius: 6px;
       cursor: pointer;
-      font-size: 14px;
     }
 
     .tab {
@@ -46,19 +43,26 @@
       background: #1c1c1c;
       padding: 15px;
       margin-bottom: 12px;
-      border-radius: 12px;
+      border-radius: 10px;
     }
 
-    button.action {
+    button {
       background: #ff4d6d;
-      width: 100%;
-      margin-top: 10px;
-      font-size: 16px;
-      padding: 12px;
-      border-radius: 10px;
-      border: none;
       color: #fff;
+      border: none;
+      padding: 10px;
+      border-radius: 8px;
       cursor: pointer;
+      margin-top: 10px;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      margin-bottom: 10px;
+      border-radius: 6px;
+      border: none;
     }
   </style>
 </head>
@@ -70,124 +74,11 @@
   <button onclick="showTab('calendario')">📅 Calendário</button>
   <button onclick="showTab('reels')">🎥 Reels</button>
   <button onclick="showTab('stories')">📲 Stories</button>
-  <button onclick="showTab('pro')">💎 Pro</button>
+  <button onclick="showTab('pro')">📊 Análise</button>
 </nav>
 
 <main>
 
   <!-- HOJE -->
   <section id="hoje" class="tab active">
-    <div class="card">
-      <h2>📌 O que postar hoje</h2>
-      <p id="todayPost">Clique para gerar um conteúdo inteligente</p>
-      <button class="action" onclick="gerarHoje()">Gerar conteúdo</button>
-    </div>
-  </section>
-
-  <!-- CALENDÁRIO -->
-  <section id="calendario" class="tab">
-    <div class="card">
-      <h2>📅 Calendário semanal</h2>
-      <ul>
-        <li>Segunda: Bastidores</li>
-        <li>Terça: Story com enquete</li>
-        <li>Quarta: Reel de processo</li>
-        <li>Quinta: Prova social</li>
-        <li>Sexta: Oferta</li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- REELS -->
-  <section id="reels" class="tab">
-    <div class="card">
-      <h2>🎥 Reel de alto engajamento</h2>
-      <p id="reelIdea">Clique para gerar</p>
-      <button class="action" onclick="gerarReel()">Gerar Reel</button>
-    </div>
-  </section>
-
-  <!-- STORIES -->
-  <section id="stories" class="tab">
-    <div class="card">
-      <h2>📲 Stories interativos</h2>
-      <p id="storyIdea">Clique para gerar</p>
-      <button class="action" onclick="gerarStory()">Gerar Story</button>
-    </div>
-  </section>
-
-  <!-- PRO -->
-  <section id="pro" class="tab">
-    <div class="card">
-      <h2>💎 Modo Pro (Estratégia)</h2>
-      <p id="proText">Clique para gerar estratégia avançada</p>
-      <button class="action" onclick="gerarPro()">Gerar Pro</button>
-    </div>
-  </section>
-
-</main>
-
-<script>
-  function showTab(id) {
-    document.querySelectorAll('.tab').forEach(tab =>
-      tab.classList.remove('active')
-    );
-    document.getElementById(id).classList.add('active');
-  }
-
-  function r(arr) {
-    return arr[Math.floor(Math.random() * arr.length)];
-  }
-
-  function gerarHoje() {
-    const formatos = ["Reel", "Story", "Foto"];
-    const objetivos = ["Engajamento", "Vendas", "Autoridade"];
-    const ideias = [
-      "Detalhe do acabamento em close",
-      "Antes e depois do bolo",
-      "Bastidores da produção",
-      "Corte do bolo mostrando recheio",
-      "Cliente retirando o pedido"
-    ];
-    const roteiros = [
-      "Close com música suave",
-      "Transição rápida do antes/depois",
-      "Processo acelerado",
-      "Corte lento em câmera próxima",
-      "Reação do cliente"
-    ];
-    const ctas = [
-      "Comenta 🍰 se gostou",
-      "Chama no direct",
-      "Salva esse post",
-      "Marca alguém que ama doce",
-      "Qual sabor você escolheria?"
-    ];
-
-    document.getElementById("todayPost").innerHTML = `
-      <strong>Formato:</strong> ${r(formatos)}<br><br>
-      <strong>Objetivo:</strong> ${r(objetivos)}<br><br>
-      <strong>Ideia:</strong> ${r(ideias)}<br><br>
-      <strong>Roteiro:</strong> ${r(roteiros)}<br><br>
-      <strong>CTA:</strong> ${r(ctas)}
-    `;
-  }
-
-  function gerarReel() {
-    document.getElementById("reelIdea").innerText =
-      "Mostre o processo + resultado final com música em alta";
-  }
-
-  function gerarStory() {
-    document.getElementById("storyIdea").innerText =
-      "Bastidores + enquete: qual sabor você prefere?";
-  }
-
-  function gerarPro() {
-    document.getElementById("proText").innerText =
-      "Post focado em autoridade + prova social + CTA direto para vendas";
-  }
-</script>
-
-</body>
-  </html>
+    <div
