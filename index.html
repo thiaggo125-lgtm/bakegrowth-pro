@@ -1,144 +1,133 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Instagram Assistant – Confeitaria</title>
+<meta charset="UTF-8">
+<title>Instagram Assistant – Confeitaria</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #000;
-      color: #fff;
-    }
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #000;
+  color: #fff;
+}
 
-    header {
-      text-align: center;
-      padding: 20px;
-      font-size: 24px;
-      font-weight: bold;
-    }
+header {
+  text-align: center;
+  padding: 20px;
+  font-size: 22px;
+  font-weight: bold;
+}
 
-    .container {
-      padding: 15px;
-    }
+.card {
+  background: #111;
+  margin: 15px;
+  padding: 15px;
+  border-radius: 16px;
+}
 
-    .card {
-      background: #1a1a1a;
-      border-radius: 15px;
-      padding: 15px;
-      margin-bottom: 15px;
-    }
+h2 {
+  margin-top: 0;
+}
 
-    button {
-      width: 100%;
-      padding: 14px;
-      border: none;
-      border-radius: 12px;
-      background: linear-gradient(45deg, #ff512f, #dd2476);
-      color: white;
-      font-size: 16px;
-      cursor: pointer;
-    }
+img {
+  width: 100%;
+  border-radius: 12px;
+  margin: 10px 0;
+}
 
-    img {
-      width: 100%;
-      border-radius: 12px;
-      margin-top: 10px;
-    }
+button {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  background: linear-gradient(45deg,#ff416c,#ff8c00);
+  color: #fff;
+  cursor: pointer;
+}
 
-    ul {
-      padding-left: 20px;
-    }
-
-    .label {
-      opacity: 0.8;
-      font-size: 14px;
-      margin-top: 8px;
-    }
-  </style>
+ul {
+  padding-left: 18px;
+}
+</style>
 </head>
 
 <body>
 
 <header>🍰 Instagram Assistant – Confeitaria</header>
 
-<div class="container">
+<div class="card">
+  <h2>🎯 O que postar hoje</h2>
+  <p id="ideia">Clique no botão</p>
+  <img id="imagem" src="">
+  <button onclick="gerar()">Gerar sugestão</button>
+</div>
 
-  <div class="card">
-    <h3>🎯 O que postar hoje</h3>
-    <p id="ideia">Clique no botão para gerar</p>
+<div class="card">
+  <h2>📸 Formato ideal</h2>
+  <p id="formato">—</p>
+</div>
 
-    <img id="imagem" src="https://picsum.photos/600/400" alt="Imagem de confeitaria">
+<div class="card">
+  <h2>📝 Legenda pronta</h2>
+  <p id="legenda">—</p>
+</div>
 
-    <button onclick="gerar()">Gerar sugestão</button>
-  </div>
+<div class="card">
+  <h2>🎬 Roteiro</h2>
+  <ul id="roteiro"></ul>
+</div>
 
-  <div class="card">
-    <h3>📸 Formato ideal</h3>
-    <p id="formato"></p>
-  </div>
+<div class="card">
+  <h2>🏷 Hashtags</h2>
+  <p id="hashtags">—</p>
+</div>
 
-  <div class="card">
-    <h3>📝 Legenda pronta</h3>
-    <p id="legenda"></p>
-  </div>
-
-  <div class="card">
-    <h3>🎬 Roteiro do conteúdo</h3>
-    <ul id="roteiro"></ul>
-  </div>
-
-  <div class="card">
-    <h3>🏷️ Hashtags</h3>
-    <p id="hashtags"></p>
-  </div>
-
-  <div class="card">
-    <h3>⏰ Melhor horário</h3>
-    <p id="horario"></p>
-  </div>
-
+<div class="card">
+  <h2>⏰ Melhor horário</h2>
+  <p id="horario">—</p>
 </div>
 
 <script>
 function gerar() {
 
   const ideias = [
-    "Detalhe do acabamento do bolo em close",
-    "Corte do bolo mostrando o recheio",
-    "Antes e depois da decoração",
-    "Bastidores da produção artesanal",
-    "Finalização do bolo com topping",
-    "Reação do cliente ao ver o bolo"
+    { texto: "Detalhe do acabamento do bolo em close", img: "cake,icing,close-up" },
+    { texto: "Corte do bolo mostrando o recheio", img: "chocolate-cake,cut" },
+    { texto: "Antes e depois da decoração do bolo", img: "decorated-cake" },
+    { texto: "Bastidores da produção artesanal", img: "baking,cake,kitchen" },
+    { texto: "Finalização do bolo com topping", img: "cake,topping" },
+    { texto: "Bolo pronto para entrega", img: "birthday-cake,box" }
   ];
 
-  const ideia = ideias[Math.floor(Math.random() * ideias.length)];
+  const pick = ideias[Math.floor(Math.random() * ideias.length)];
 
-  document.getElementById("ideia").innerText = ideia;
+  document.getElementById("ideia").innerText = pick.texto;
 
   document.getElementById("imagem").src =
-    "https://picsum.photos/600/400?random=" + new Date().getTime();
+    "https://source.unsplash.com/600x400/?" +
+    pick.img + "&sig=" + Date.now();
 
   document.getElementById("formato").innerText =
-    "Reel (maior alcance e engajamento)";
+    "Reel (maior alcance para confeitaria)";
 
   document.getElementById("legenda").innerText =
-`✨ ${ideia}
+`🍰 ${pick.texto}
 
-Cada detalhe feito com amor e sabor 🍰  
-Encomendas pelo direct 📲`;
+Feito com carinho, sabor e atenção aos detalhes ✨
+📲 Encomendas pelo direct`;
 
   document.getElementById("roteiro").innerHTML = `
-    <li>🎬 Cena 1: Mostrar o bolo inteiro</li>
-    <li>🔪 Cena 2: Corte lento</li>
-    <li>✨ Cena 3: Close no recheio</li>
-    <li>👉 Cena 4: Chamada para ação</li>
+    <li>Mostrar o bolo inteiro</li>
+    <li>Close nos detalhes</li>
+    <li>Corte lento (se tiver recheio)</li>
+    <li>Final com CTA</li>
   `;
 
   document.getElementById("hashtags").innerText =
-"#confeitaria #bolosartesanais #instabolo #doces #empreendedorismo #bolo";
+"#confeitaria #bolosartesanais #bolo #doces #instabolo #empreendedora";
 
   document.getElementById("horario").innerText =
 "12h–13h ou 19h–21h";
