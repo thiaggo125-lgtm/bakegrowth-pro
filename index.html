@@ -1,83 +1,172 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Instagram Assistant Confeitaria</title>
+  <meta charset="UTF-8">
+  <title>Instagram Assistant – Confeitaria</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
-body {
-  font-family: Arial, sans-serif;
-  background: #000;
-  color: #fff;
-  margin: 0;
-  padding: 15px;
-}
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0f0f0f;
+      color: #fff;
+    }
 
-h1 {
-  text-align: center;
-}
+    header {
+      text-align: center;
+      padding: 20px;
+      font-size: 22px;
+      font-weight: bold;
+    }
 
-.card {
-  background: #1a1a1a;
-  border-radius: 15px;
-  padding: 15px;
-}
+    .card {
+      background: #1b1b1b;
+      margin: 15px;
+      padding: 15px;
+      border-radius: 14px;
+    }
 
-button {
-  width: 100%;
-  padding: 14px;
-  margin-top: 12px;
-  border: none;
-  border-radius: 12px;
-  background: #ff4d6d;
-  color: white;
-  font-size: 16px;
-}
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #ff7a18;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      color: #fff;
+      cursor: pointer;
+      margin-top: 10px;
+    }
 
-.fake-img {
-  height: 200px;
-  border-radius: 12px;
-  background: linear-gradient(135deg, #ff4d6d, #ff9a3c);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 10px;
-  font-size: 18px;
-}
-</style>
+    img {
+      width: 100%;
+      border-radius: 12px;
+      margin-top: 10px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      margin-top: 8px;
+      margin-bottom: 10px;
+    }
+
+    .small {
+      font-size: 14px;
+      color: #ccc;
+      margin-top: 8px;
+    }
+  </style>
 </head>
 
 <body>
 
-<h1>🍰 Instagram Assistant</h1>
+<header>🍰 Instagram Assistant – Confeitaria</header>
 
 <div class="card">
-  <h2>📸 Sugestão de Post</h2>
+  <h3>🎯 O que postar hoje</h3>
+  <p id="texto">Clique no botão para gerar</p>
+  <img id="img">
+  <button onclick="gerarSugestao()">Gerar sugestão</button>
+</div>
 
-  <p id="texto">Clique no botão</p>
+<div class="card">
+  <h3>📸 Foto / 🎥 Reel / 📲 Story</h3>
+  <p id="formato"></p>
+  <p id="roteiro"></p>
+</div>
 
-  <div id="imagem" class="fake-img" style="display:none;">
-    Imagem sugerida do post
-  </div>
+<div class="card">
+  <h3>🏷 Hashtags</h3>
+  <p id="hashtags" class="small"></p>
+</div>
 
-  <button onclick="gerar()">Gerar sugestão</button>
+<div class="card">
+  <h3>⏰ Melhor horário para postar</h3>
+  <p id="horario"></p>
+</div>
+
+<div class="card">
+  <h3>📊 Análise do seu Instagram</h3>
+
+  <input id="nicho" placeholder="Ex: Confeitaria artesanal">
+  <input id="frequencia" placeholder="Postagens por semana (ex: 3)">
+  <textarea id="bio" placeholder="Cole sua bio do Instagram"></textarea>
+
+  <button onclick="analisarPerfil()">Analisar perfil</button>
+
+  <p id="analise" class="small"></p>
 </div>
 
 <script>
-function gerar() {
-  const ideias = [
-    "Detalhe do acabamento em close",
-    "Antes e depois do bolo",
-    "Corte do bolo mostrando o recheio",
-    "Bastidores da produção",
-    "Pedido finalizado na vitrine"
+function gerarSugestao() {
+  const dados = [
+    {
+      texto: "Antes e depois do bolo",
+      img: "https://source.unsplash.com/800x600/?cake",
+      formato: "Reel",
+      roteiro: "Mostre o bolo simples → transição → bolo final",
+    },
+    {
+      texto: "Detalhe do acabamento em close",
+      img: "https://source.unsplash.com/800x600/?cake,decor",
+      formato: "Foto",
+      roteiro: "Close no acabamento com boa iluminação",
+    },
+    {
+      texto: "Corte do bolo mostrando recheio",
+      img: "https://source.unsplash.com/800x600/?cake,slice",
+      formato: "Reel",
+      roteiro: "Corte lento destacando o recheio",
+    },
+    {
+      texto: "Bastidores da produção",
+      img: "https://source.unsplash.com/800x600/?bakery,kitchen",
+      formato: "Story",
+      roteiro: "Mostre o processo real e simples",
+    }
   ];
 
-  const i = Math.floor(Math.random() * ideias.length);
+  const hashtags = [
+    "#confeitaria",
+    "#bolosartesanais",
+    "#doces",
+    "#bolo",
+    "#confeiteira",
+    "#instabolo",
+    "#empreendedorismo",
+    "#bolodecorado"
+  ];
 
-  document.getElementById("texto").innerText = ideias[i];
-  document.getElementById("imagem").style.display = "flex";
+  const horarios = [
+    "18h – 20h",
+    "12h – 13h",
+    "19h – 21h"
+  ];
+
+  const r = dados[Math.floor(Math.random() * dados.length)];
+
+  document.getElementById("texto").innerText = r.texto;
+  document.getElementById("img").src = r.img;
+  document.getElementById("formato").innerText = "Formato ideal: " + r.formato;
+  document.getElementById("roteiro").innerText = "Roteiro: " + r.roteiro;
+  document.getElementById("hashtags").innerText = hashtags.join(" ");
+  document.getElementById("horario").innerText =
+    horarios[Math.floor(Math.random() * horarios.length)];
+}
+
+function analisarPerfil() {
+  const nicho = document.getElementById("nicho").value;
+  const freq = document.getElementById("frequencia").value;
+  const bio = document.getElementById("bio").value;
+
+  document.getElementById("analise").innerText =
+    `Seu perfil está no nicho "${nicho}". 
+    Publicando ${freq}x por semana. 
+    Sugestão: usar mais Reels, CTA nos stories e bio com chamada clara para encomendas.`;
 }
 </script>
 
