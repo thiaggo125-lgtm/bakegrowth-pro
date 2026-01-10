@@ -1,174 +1,127 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Instagram Assistant – Confeitaria</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>Instagram Assistant – Confeitaria</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0f0f0f;
-      color: #fff;
-    }
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #000;
+  color: #fff;
+}
 
-    header {
-      text-align: center;
-      padding: 20px;
-      font-size: 22px;
-      font-weight: bold;
-    }
+header {
+  text-align: center;
+  padding: 20px;
+  font-size: 22px;
+  font-weight: bold;
+}
 
-    .card {
-      background: #1b1b1b;
-      margin: 15px;
-      padding: 15px;
-      border-radius: 14px;
-    }
+.tabs {
+  display: flex;
+  gap: 8px;
+  padding: 10px;
+}
 
-    button {
-      width: 100%;
-      padding: 12px;
-      background: #ff7a18;
-      border: none;
-      border-radius: 10px;
-      font-size: 16px;
-      color: #fff;
-      cursor: pointer;
-      margin-top: 10px;
-    }
+.tabs button {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 12px;
+  background: #222;
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+}
 
-    img {
-      width: 100%;
-      border-radius: 12px;
-      margin-top: 10px;
-    }
+.card {
+  background: #111;
+  margin: 12px;
+  padding: 16px;
+  border-radius: 18px;
+}
 
-    input, textarea {
-      width: 100%;
-      padding: 10px;
-      border-radius: 8px;
-      border: none;
-      margin-top: 8px;
-      margin-bottom: 10px;
-    }
+h2 {
+  margin-top: 0;
+}
 
-    .small {
-      font-size: 14px;
-      color: #ccc;
-      margin-top: 8px;
-    }
-  </style>
+img {
+  width: 100%;
+  border-radius: 16px;
+  margin-top: 12px;
+}
+
+.action {
+  margin-top: 15px;
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 14px;
+  background: linear-gradient(135deg,#ff416c,#ff9f1c);
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+}
+</style>
 </head>
 
 <body>
 
 <header>🍰 Instagram Assistant – Confeitaria</header>
 
-<div class="card">
-  <h3>🎯 O que postar hoje</h3>
-  <p id="texto">Clique no botão para gerar</p>
-  <img id="img">
-  <button onclick="gerarSugestao()">Gerar sugestão</button>
+<div class="tabs">
+  <button onclick="gerarFeed()">📸 Feed</button>
+  <button onclick="gerarReel()">🎥 Reels</button>
+  <button onclick="gerarStory()">📲 Stories</button>
 </div>
 
 <div class="card">
-  <h3>📸 Foto / 🎥 Reel / 📲 Story</h3>
-  <p id="formato"></p>
-  <p id="roteiro"></p>
-</div>
+  <h2 id="titulo">Escolha um formato</h2>
+  <p id="descricao">Clique em Feed, Reels ou Stories</p>
 
-<div class="card">
-  <h3>🏷 Hashtags</h3>
-  <p id="hashtags" class="small"></p>
-</div>
+  <img
+    id="imagem"
+    src="https://source.unsplash.com/800x600/?cake"
+    alt="Imagem de confeitaria">
 
-<div class="card">
-  <h3>⏰ Melhor horário para postar</h3>
-  <p id="horario"></p>
-</div>
-
-<div class="card">
-  <h3>📊 Análise do seu Instagram</h3>
-
-  <input id="nicho" placeholder="Ex: Confeitaria artesanal">
-  <input id="frequencia" placeholder="Postagens por semana (ex: 3)">
-  <textarea id="bio" placeholder="Cole sua bio do Instagram"></textarea>
-
-  <button onclick="analisarPerfil()">Analisar perfil</button>
-
-  <p id="analise" class="small"></p>
+  <button class="action" onclick="gerarAleatorio()">Gerar sugestão</button>
 </div>
 
 <script>
-function gerarSugestao() {
-  const dados = [
-    {
-      texto: "Antes e depois do bolo",
-      img: "https://source.unsplash.com/800x600/?cake",
-      formato: "Reel",
-      roteiro: "Mostre o bolo simples → transição → bolo final",
-    },
-    {
-      texto: "Detalhe do acabamento em close",
-      img: "https://source.unsplash.com/800x600/?cake,decor",
-      formato: "Foto",
-      roteiro: "Close no acabamento com boa iluminação",
-    },
-    {
-      texto: "Corte do bolo mostrando recheio",
-      img: "https://source.unsplash.com/800x600/?cake,slice",
-      formato: "Reel",
-      roteiro: "Corte lento destacando o recheio",
-    },
-    {
-      texto: "Bastidores da produção",
-      img: "https://source.unsplash.com/800x600/?bakery,kitchen",
-      formato: "Story",
-      roteiro: "Mostre o processo real e simples",
-    }
-  ];
-
-  const hashtags = [
-    "#confeitaria",
-    "#bolosartesanais",
-    "#doces",
-    "#bolo",
-    "#confeiteira",
-    "#instabolo",
-    "#empreendedorismo",
-    "#bolodecorado"
-  ];
-
-  const horarios = [
-    "18h – 20h",
-    "12h – 13h",
-    "19h – 21h"
-  ];
-
-  const r = dados[Math.floor(Math.random() * dados.length)];
-
-  document.getElementById("texto").innerText = r.texto;
-  document.getElementById("img").src = r.img;
-  document.getElementById("formato").innerText = "Formato ideal: " + r.formato;
-  document.getElementById("roteiro").innerText = "Roteiro: " + r.roteiro;
-  document.getElementById("hashtags").innerText = hashtags.join(" ");
-  document.getElementById("horario").innerText =
-    horarios[Math.floor(Math.random() * horarios.length)];
+function imagem(query) {
+  document.getElementById("imagem").src =
+    "https://source.unsplash.com/800x600/?" + query + "&" + Math.random();
 }
 
-function analisarPerfil() {
-  const nicho = document.getElementById("nicho").value;
-  const freq = document.getElementById("frequencia").value;
-  const bio = document.getElementById("bio").value;
+function gerarFeed() {
+  document.getElementById("titulo").innerText = "📸 Post para Feed";
+  document.getElementById("descricao").innerText =
+    "Detalhe do acabamento do bolo em close, iluminação natural.";
+  imagem("cake,confectionery,food");
+}
 
-  document.getElementById("analise").innerText =
-    `Seu perfil está no nicho "${nicho}". 
-    Publicando ${freq}x por semana. 
-    Sugestão: usar mais Reels, CTA nos stories e bio com chamada clara para encomendas.`;
+function gerarReel() {
+  document.getElementById("titulo").innerText = "🎥 Ideia de Reel";
+  document.getElementById("descricao").innerText =
+    "Antes e depois do bolo com transição rápida e música em alta.";
+  imagem("cake,process,bakery");
+}
+
+function gerarStory() {
+  document.getElementById("titulo").innerText = "📲 Story Interativo";
+  document.getElementById("descricao").innerText =
+    "Bastidores + enquete: Qual sabor você escolheria?";
+  imagem("bakery,kitchen,dessert");
+}
+
+function gerarAleatorio() {
+  const funcoes = [gerarFeed, gerarReel, gerarStory];
+  funcoes[Math.floor(Math.random() * funcoes.length)]();
 }
 </script>
 
 </body>
-</html>
+  </html>
