@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Instagram Assistant – Confeitaria</title>
+<title>Instagram Assistant Confeitaria</title>
 
 <style>
 body {
   font-family: Arial, sans-serif;
-  background: #0f0f0f;
+  background: #000;
   color: #fff;
   margin: 0;
   padding: 15px;
@@ -19,43 +19,47 @@ h1 {
 }
 
 .card {
-  background: #1c1c1c;
+  background: #1a1a1a;
   border-radius: 15px;
   padding: 15px;
-  margin-bottom: 20px;
 }
 
 button {
   width: 100%;
-  padding: 12px;
-  margin-top: 10px;
+  padding: 14px;
+  margin-top: 12px;
   border: none;
-  border-radius: 10px;
-  background: #ff7a18;
-  color: #fff;
+  border-radius: 12px;
+  background: #ff4d6d;
+  color: white;
   font-size: 16px;
-  cursor: pointer;
 }
 
-img {
-  width: 100%;
+.fake-img {
+  height: 200px;
   border-radius: 12px;
+  background: linear-gradient(135deg, #ff4d6d, #ff9a3c);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin-top: 10px;
-  display: none;
+  font-size: 18px;
 }
 </style>
 </head>
 
 <body>
 
-<h1>🍰 Instagram Assistant – Confeitaria</h1>
+<h1>🍰 Instagram Assistant</h1>
 
 <div class="card">
-  <h2>🎯 O que postar hoje</h2>
+  <h2>📸 Sugestão de Post</h2>
 
-  <p id="texto">Clique no botão para gerar</p>
+  <p id="texto">Clique no botão</p>
 
-  <img id="imagem" />
+  <div id="imagem" class="fake-img" style="display:none;">
+    Imagem sugerida do post
+  </div>
 
   <button onclick="gerar()">Gerar sugestão</button>
 </div>
@@ -70,21 +74,10 @@ function gerar() {
     "Pedido finalizado na vitrine"
   ];
 
-  const imagens = [
-    "https://images.unsplash.com/photo-1542826438-8b4b8e89f9c2",
-    "https://images.unsplash.com/photo-1601979031925-424e53b6caaa",
-    "https://images.unsplash.com/photo-1578985545062-69928b1d9587",
-    "https://images.unsplash.com/photo-1586985288123-2495f577c250",
-    "https://images.unsplash.com/photo-1509440159596-0249088772ff"
-  ];
-
   const i = Math.floor(Math.random() * ideias.length);
 
   document.getElementById("texto").innerText = ideias[i];
-
-  const img = document.getElementById("imagem");
-  img.src = imagens[i];
-  img.style.display = "block";
+  document.getElementById("imagem").style.display = "flex";
 }
 </script>
 
