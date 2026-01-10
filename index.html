@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Instagram Assistant – Confeitaria</title>
 
 <style>
@@ -38,27 +37,11 @@ button {
   cursor: pointer;
 }
 
-button:hover {
-  opacity: 0.9;
-}
-
 img {
   width: 100%;
   border-radius: 12px;
   margin-top: 10px;
-}
-
-.galeria {
-  display: flex;
-  gap: 10px;
-  overflow-x: auto;
-}
-
-.galeria img {
-  width: 150px;
-  height: 150px;
-  object-fit: cover;
-  border-radius: 10px;
+  display: none;
 }
 </style>
 </head>
@@ -67,47 +50,43 @@ img {
 
 <h1>🍰 Instagram Assistant – Confeitaria</h1>
 
-<!-- IDEIA + IMAGEM AUTOMÁTICA -->
 <div class="card">
-  <h2>🎥 O que postar hoje</h2>
+  <h2>🎯 O que postar hoje</h2>
 
-  <p id="textoAuto">Clique no botão</p>
+  <p id="texto">Clique no botão para gerar</p>
 
-  <img id="imgAuto" src="">
+  <img id="imagem" />
 
-  <button onclick="gerarImagem()">Gerar ideia</button>
-</div>
-
-<!-- GALERIA DE INSPIRAÇÃO -->
-<div class="card">
-  <h2>🖼 Inspiração visual</h2>
-
-  <div class="galeria">
-    <img src="https://source.unsplash.com/300x300/?cake">
-    <img src="https://source.unsplash.com/300x300/?dessert">
-    <img src="https://source.unsplash.com/300x300/?bakery">
-    <img src="https://source.unsplash.com/300x300/?chocolate-cake">
-    <img src="https://source.unsplash.com/300x300/?birthday-cake">
-  </div>
+  <button onclick="gerar()">Gerar sugestão</button>
 </div>
 
 <script>
-function gerarImagem() {
+function gerar() {
   const ideias = [
     "Detalhe do acabamento em close",
     "Antes e depois do bolo",
-    "Corte mostrando o recheio",
+    "Corte do bolo mostrando o recheio",
     "Bastidores da produção",
-    "Cliente retirando o pedido"
+    "Pedido finalizado na vitrine"
   ];
 
-  document.getElementById("textoAuto").innerText =
-    ideias[Math.floor(Math.random() * ideias.length)];
+  const imagens = [
+    "https://images.unsplash.com/photo-1542826438-8b4b8e89f9c2",
+    "https://images.unsplash.com/photo-1601979031925-424e53b6caaa",
+    "https://images.unsplash.com/photo-1578985545062-69928b1d9587",
+    "https://images.unsplash.com/photo-1586985288123-2495f577c250",
+    "https://images.unsplash.com/photo-1509440159596-0249088772ff"
+  ];
 
-  document.getElementById("imgAuto").src =
-    "https://source.unsplash.com/600x600/?cake&sig=" + Math.random();
+  const i = Math.floor(Math.random() * ideias.length);
+
+  document.getElementById("texto").innerText = ideias[i];
+
+  const img = document.getElementById("imagem");
+  img.src = imagens[i];
+  img.style.display = "block";
 }
 </script>
 
 </body>
-      </html>
+</html>
