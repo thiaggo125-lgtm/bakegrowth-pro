@@ -20,23 +20,6 @@ header {
   font-weight: bold;
 }
 
-.tabs {
-  display: flex;
-  gap: 8px;
-  padding: 10px;
-}
-
-.tabs button {
-  flex: 1;
-  padding: 12px;
-  border: none;
-  border-radius: 12px;
-  background: #222;
-  color: #fff;
-  cursor: pointer;
-  font-size: 14px;
-}
-
 .card {
   background: #111;
   margin: 12px;
@@ -65,6 +48,16 @@ img {
   font-size: 16px;
   cursor: pointer;
 }
+
+textarea {
+  width: 100%;
+  background: #000;
+  color: #fff;
+  border: 1px solid #333;
+  border-radius: 12px;
+  padding: 10px;
+  min-height: 130px;
+}
 </style>
 </head>
 
@@ -72,56 +65,96 @@ img {
 
 <header>🍰 Instagram Assistant – Confeitaria</header>
 
-<div class="tabs">
-  <button onclick="gerarFeed()">📸 Feed</button>
-  <button onclick="gerarReel()">🎥 Reels</button>
-  <button onclick="gerarStory()">📲 Stories</button>
+<div class="card">
+  <h2>🎯 O que postar hoje</h2>
+  <p id="ideia">Clique no botão abaixo</p>
+
+  <img id="imagem" src="https://source.unsplash.com/800x600/?cake" />
+
+  <button class="action" onclick="gerarTudo()">Gerar sugestão</button>
 </div>
 
 <div class="card">
-  <h2 id="titulo">Escolha um formato</h2>
-  <p id="descricao">Clique em Feed, Reels ou Stories</p>
+  <h2>📸 Formato ideal</h2>
+  <p id="formato"></p>
+  <p id="roteiro"></p>
+</div>
 
-  <img
-    id="imagem"
-    src="https://source.unsplash.com/800x600/?cake"
-    alt="Imagem de confeitaria">
+<div class="card">
+  <h2>📄 Legenda pronta</h2>
+  <textarea id="legenda" readonly></textarea>
+</div>
 
-  <button class="action" onclick="gerarAleatorio()">Gerar sugestão</button>
+<div class="card">
+  <h2>🏷️ Hashtags</h2>
+  <p id="hashtags"></p>
+</div>
+
+<div class="card">
+  <h2>⏰ Melhor horário</h2>
+  <p id="horario"></p>
 </div>
 
 <script>
-function imagem(query) {
+function img(q) {
   document.getElementById("imagem").src =
-    "https://source.unsplash.com/800x600/?" + query + "&" + Math.random();
+    "https://source.unsplash.com/800x600/?" + q + "&" + Math.random();
 }
 
-function gerarFeed() {
-  document.getElementById("titulo").innerText = "📸 Post para Feed";
-  document.getElementById("descricao").innerText =
-    "Detalhe do acabamento do bolo em close, iluminação natural.";
-  imagem("cake,confectionery,food");
+function r(a) {
+  return a[Math.floor(Math.random() * a.length)];
 }
 
-function gerarReel() {
-  document.getElementById("titulo").innerText = "🎥 Ideia de Reel";
-  document.getElementById("descricao").innerText =
-    "Antes e depois do bolo com transição rápida e música em alta.";
-  imagem("cake,process,bakery");
-}
+function gerarTudo() {
+  const ideias = [
+    "Corte do bolo mostrando o recheio",
+    "Detalhe do acabamento em close",
+    "Antes e depois do bolo",
+    "Bastidores da produção",
+    "Cliente retirando o pedido"
+  ];
 
-function gerarStory() {
-  document.getElementById("titulo").innerText = "📲 Story Interativo";
-  document.getElementById("descricao").innerText =
-    "Bastidores + enquete: Qual sabor você escolheria?";
-  imagem("bakery,kitchen,dessert");
-}
+  const formatos = ["Reel", "Foto", "Story"];
 
-function gerarAleatorio() {
-  const funcoes = [gerarFeed, gerarReel, gerarStory];
-  funcoes[Math.floor(Math.random() * funcoes.length)]();
+  const roteiros = {
+    Reel: "Corte lento destacando o recheio",
+    Foto: "Foto bem iluminada focando nos detalhes",
+    Story: "Bastidores + enquete interativa"
+  };
+
+  const ctas = [
+    "Qual sabor você escolheria? 🍰",
+    "Comenta se deu vontade 😍",
+    "Chama no direct pra encomendar",
+    "Salva esse post pra se inspirar",
+    "Marca alguém que ama doce"
+  ];
+
+  const ideia = r(ideias);
+  const formato = r(formatos);
+  const cta = r(ctas);
+
+  document.getElementById("ideia").innerText = ideia;
+  document.getElementById("formato").innerText = "Formato ideal: " + formato;
+  document.getElementById("roteiro").innerText = "Roteiro: " + roteiros[formato];
+
+  img("cake,confectionery");
+
+  document.getElementById("legenda").value =
+`✨ ${ideia}
+
+Aqui cada detalhe é feito com carinho e muito sabor 🤍🍰
+
+${cta}
+
+📲 Encomendas pelo direct`;
+
+  document.getElementById("hashtags").innerText =
+"#confeitaria #bolosartesanais #doces #bolo #confeiteira #instabolo #bolodecorado";
+
+  document.getElementById("horario").innerText = "12h – 13h ou 19h – 21h";
 }
 </script>
 
 </body>
-  </html>
+</html>
