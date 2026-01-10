@@ -33,15 +33,16 @@ h2 {
 
 img {
   width: 100%;
-  border-radius: 12px;
+  border-radius: 14px;
   margin: 10px 0;
+  object-fit: cover;
 }
 
 button {
   width: 100%;
   padding: 14px;
   border: none;
-  border-radius: 12px;
+  border-radius: 14px;
   font-size: 16px;
   background: linear-gradient(45deg,#ff416c,#ff8c00);
   color: #fff;
@@ -61,7 +62,7 @@ ul {
 <div class="card">
   <h2>🎯 O que postar hoje</h2>
   <p id="ideia">Clique no botão</p>
-  <img id="imagem" src="">
+  <img id="imagem" src="" alt="Imagem de bolo">
   <button onclick="gerar()">Gerar sugestão</button>
 </div>
 
@@ -94,40 +95,45 @@ ul {
 function gerar() {
 
   const ideias = [
-    { texto: "Detalhe do acabamento do bolo em close", img: "cake,icing,close-up" },
-    { texto: "Corte do bolo mostrando o recheio", img: "chocolate-cake,cut" },
-    { texto: "Antes e depois da decoração do bolo", img: "decorated-cake" },
-    { texto: "Bastidores da produção artesanal", img: "baking,cake,kitchen" },
-    { texto: "Finalização do bolo com topping", img: "cake,topping" },
-    { texto: "Bolo pronto para entrega", img: "birthday-cake,box" }
+    "Antes e depois da decoração",
+    "Detalhe do acabamento em close",
+    "Corte do bolo mostrando recheio",
+    "Finalização do bolo",
+    "Bolo pronto para entrega",
+    "Bastidores da produção"
   ];
 
-  const pick = ideias[Math.floor(Math.random() * ideias.length)];
+  const imagens = [
+    "https://images.unsplash.com/photo-1578985545062-69928b1d9587",
+    "https://images.unsplash.com/photo-1601979031925-424e53b6caaa",
+    "https://images.unsplash.com/photo-1542826438-bd32f43d626f",
+    "https://images.unsplash.com/photo-1605475128023-41a2c7c3f0aa",
+    "https://images.unsplash.com/photo-1565958011703-44f9829ba187",
+    "https://images.unsplash.com/photo-1586985289071-36f0b7b1b1b3"
+  ];
 
-  document.getElementById("ideia").innerText = pick.texto;
+  const i = Math.floor(Math.random() * ideias.length);
 
-  document.getElementById("imagem").src =
-    "https://source.unsplash.com/600x400/?" +
-    pick.img + "&sig=" + Date.now();
+  document.getElementById("ideia").innerText = ideias[i];
+  document.getElementById("imagem").src = imagens[i] + "?w=800";
 
   document.getElementById("formato").innerText =
-    "Reel (maior alcance para confeitaria)";
+    "Reel (maior alcance e engajamento)";
 
   document.getElementById("legenda").innerText =
-`🍰 ${pick.texto}
-
-Feito com carinho, sabor e atenção aos detalhes ✨
+`✨ ${ideias[i]}
+Cada detalhe feito com amor e sabor 🍰
 📲 Encomendas pelo direct`;
 
   document.getElementById("roteiro").innerHTML = `
     <li>Mostrar o bolo inteiro</li>
     <li>Close nos detalhes</li>
-    <li>Corte lento (se tiver recheio)</li>
-    <li>Final com CTA</li>
+    <li>Corte lento ou finalização</li>
+    <li>Encerrar com CTA</li>
   `;
 
   document.getElementById("hashtags").innerText =
-"#confeitaria #bolosartesanais #bolo #doces #instabolo #empreendedora";
+"#confeitaria #bolosartesanais #bolo #doces #instabolo #empreender";
 
   document.getElementById("horario").innerText =
 "12h–13h ou 19h–21h";
@@ -135,4 +141,4 @@ Feito com carinho, sabor e atenção aos detalhes ✨
 </script>
 
 </body>
-</html>
+  </html>
