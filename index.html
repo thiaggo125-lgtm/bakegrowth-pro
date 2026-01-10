@@ -1,108 +1,105 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<title>Instagram Assistant – Confeitaria</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Instagram Assistant – Confeitaria</title>
 
-<style>
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #000;
-  color: #fff;
-}
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #000;
+      color: #fff;
+    }
 
-header {
-  text-align: center;
-  padding: 20px;
-  font-size: 22px;
-  font-weight: bold;
-}
+    header {
+      text-align: center;
+      padding: 20px;
+      font-size: 24px;
+      font-weight: bold;
+    }
 
-.tabs {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-}
+    .container {
+      padding: 15px;
+    }
 
-.tabs button {
-  padding: 10px 14px;
-  border-radius: 20px;
-  border: none;
-  background: #222;
-  color: #fff;
-}
+    .card {
+      background: #1a1a1a;
+      border-radius: 15px;
+      padding: 15px;
+      margin-bottom: 15px;
+    }
 
-.card {
-  background: #111;
-  margin: 14px;
-  padding: 16px;
-  border-radius: 18px;
-}
+    button {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(45deg, #ff512f, #dd2476);
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
 
-img {
-  width: 100%;
-  border-radius: 16px;
-  margin-top: 12px;
-}
+    img {
+      width: 100%;
+      border-radius: 12px;
+      margin-top: 10px;
+    }
 
-button.action {
-  margin-top: 15px;
-  width: 100%;
-  padding: 14px;
-  border: none;
-  border-radius: 14px;
-  background: linear-gradient(135deg,#ff416c,#ff9f1c);
-  color: #fff;
-  font-size: 16px;
-}
-</style>
+    ul {
+      padding-left: 20px;
+    }
+
+    .label {
+      opacity: 0.8;
+      font-size: 14px;
+      margin-top: 8px;
+    }
+  </style>
 </head>
 
 <body>
 
 <header>🍰 Instagram Assistant – Confeitaria</header>
 
-<div class="tabs">
-  <button>📸 Feed</button>
-  <button>🎬 Reels</button>
-  <button>📱 Stories</button>
-</div>
+<div class="container">
 
-<div class="card">
-  <h2>💡 Ideia de Post</h2>
-  <p id="ideia">Clique em gerar</p>
+  <div class="card">
+    <h3>🎯 O que postar hoje</h3>
+    <p id="ideia">Clique no botão para gerar</p>
 
-  <!-- IMAGEM REAL -->
-  <img id="imagem" src="https://images.unsplash.com/photo-1601979031925-424e53b6caaa?w=800">
+    <img id="imagem" src="https://picsum.photos/600/400" alt="Imagem de confeitaria">
 
-  <button class="action" onclick="gerar()">Gerar sugestão</button>
-</div>
+    <button onclick="gerar()">Gerar sugestão</button>
+  </div>
 
-<div class="card">
-  <h2>🎬 Formato</h2>
-  <p id="formato"></p>
-</div>
+  <div class="card">
+    <h3>📸 Formato ideal</h3>
+    <p id="formato"></p>
+  </div>
 
-<div class="card">
-  <h2>📄 Legenda pronta</h2>
-  <p id="legenda"></p>
-</div>
+  <div class="card">
+    <h3>📝 Legenda pronta</h3>
+    <p id="legenda"></p>
+  </div>
 
-<div class="card">
-  <h2>🎥 Roteiro de Reels (Opção 6)</h2>
-  <ul id="roteiro"></ul>
-</div>
+  <div class="card">
+    <h3>🎬 Roteiro do conteúdo</h3>
+    <ul id="roteiro"></ul>
+  </div>
 
-<div class="card">
-  <h2>🏷️ Hashtags</h2>
-  <p id="hashtags"></p>
-</div>
+  <div class="card">
+    <h3>🏷️ Hashtags</h3>
+    <p id="hashtags"></p>
+  </div>
 
-<div class="card">
-  <h2>⏰ Melhor horário</h2>
-  <p id="horario"></p>
+  <div class="card">
+    <h3>⏰ Melhor horário</h3>
+    <p id="horario"></p>
+  </div>
+
 </div>
 
 <script>
@@ -112,41 +109,36 @@ function gerar() {
     "Detalhe do acabamento do bolo em close",
     "Corte do bolo mostrando o recheio",
     "Antes e depois da decoração",
-    "Bastidores da produção artesanal"
+    "Bastidores da produção artesanal",
+    "Finalização do bolo com topping",
+    "Reação do cliente ao ver o bolo"
   ];
 
-  const imagens = [
-    "https://images.unsplash.com/photo-1601979031925-424e53b6caaa?w=800",
-    "https://images.unsplash.com/photo-1542826438-bd32f43d626f?w=800",
-    "https://images.unsplash.com/photo-1603532648955-039310d9ed75?w=800"
-  ];
-
-  const ideia = ideias[Math.floor(Math.random()*ideias.length)];
-  const imagem = imagens[Math.floor(Math.random()*imagens.length)];
+  const ideia = ideias[Math.floor(Math.random() * ideias.length)];
 
   document.getElementById("ideia").innerText = ideia;
-  document.getElementById("imagem").src = imagem;
+
+  document.getElementById("imagem").src =
+    "https://picsum.photos/600/400?random=" + new Date().getTime();
 
   document.getElementById("formato").innerText =
-    "Reel (mais alcance)";
+    "Reel (maior alcance e engajamento)";
 
   document.getElementById("legenda").innerText =
 `✨ ${ideia}
 
-Feito com carinho, sabor e atenção a cada detalhe 🍰  
-Quem ama bolo artesanal vai entender 😍
-
-📲 Chama no direct para encomendas`;
+Cada detalhe feito com amor e sabor 🍰  
+Encomendas pelo direct 📲`;
 
   document.getElementById("roteiro").innerHTML = `
-    <li>🎬 Cena 1: Abertura rápida do bolo inteiro</li>
-    <li>🔪 Cena 2: Corte lento mostrando o recheio</li>
-    <li>✨ Cena 3: Close no acabamento</li>
-    <li>👉 Cena 4: Texto na tela “Encomendas no direct”</li>
+    <li>🎬 Cena 1: Mostrar o bolo inteiro</li>
+    <li>🔪 Cena 2: Corte lento</li>
+    <li>✨ Cena 3: Close no recheio</li>
+    <li>👉 Cena 4: Chamada para ação</li>
   `;
 
   document.getElementById("hashtags").innerText =
-"#confeitaria #bolosartesanais #doces #instabolo #bolo";
+"#confeitaria #bolosartesanais #instabolo #doces #empreendedorismo #bolo";
 
   document.getElementById("horario").innerText =
 "12h–13h ou 19h–21h";
