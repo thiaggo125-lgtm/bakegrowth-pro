@@ -20,15 +20,25 @@ header {
   font-weight: bold;
 }
 
-.card {
-  background: #111;
-  margin: 12px;
-  padding: 16px;
-  border-radius: 18px;
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
 }
 
-h2 {
-  margin-top: 0;
+.tabs button {
+  padding: 10px 14px;
+  border-radius: 20px;
+  border: none;
+  background: #222;
+  color: #fff;
+}
+
+.card {
+  background: #111;
+  margin: 14px;
+  padding: 16px;
+  border-radius: 18px;
 }
 
 img {
@@ -37,7 +47,7 @@ img {
   margin-top: 12px;
 }
 
-.action {
+button.action {
   margin-top: 15px;
   width: 100%;
   padding: 14px;
@@ -46,17 +56,6 @@ img {
   background: linear-gradient(135deg,#ff416c,#ff9f1c);
   color: #fff;
   font-size: 16px;
-  cursor: pointer;
-}
-
-textarea {
-  width: 100%;
-  background: #000;
-  color: #fff;
-  border: 1px solid #333;
-  border-radius: 12px;
-  padding: 10px;
-  min-height: 130px;
 }
 </style>
 </head>
@@ -65,24 +64,35 @@ textarea {
 
 <header>🍰 Instagram Assistant – Confeitaria</header>
 
-<div class="card">
-  <h2>🎯 O que postar hoje</h2>
-  <p id="ideia">Clique no botão abaixo</p>
-
-  <img id="imagem" src="https://source.unsplash.com/800x600/?cake" />
-
-  <button class="action" onclick="gerarTudo()">Gerar sugestão</button>
+<div class="tabs">
+  <button>📸 Feed</button>
+  <button>🎬 Reels</button>
+  <button>📱 Stories</button>
 </div>
 
 <div class="card">
-  <h2>📸 Formato ideal</h2>
+  <h2>💡 Ideia de Post</h2>
+  <p id="ideia">Clique em gerar</p>
+
+  <!-- IMAGEM REAL -->
+  <img id="imagem" src="https://images.unsplash.com/photo-1601979031925-424e53b6caaa?w=800">
+
+  <button class="action" onclick="gerar()">Gerar sugestão</button>
+</div>
+
+<div class="card">
+  <h2>🎬 Formato</h2>
   <p id="formato"></p>
-  <p id="roteiro"></p>
 </div>
 
 <div class="card">
   <h2>📄 Legenda pronta</h2>
-  <textarea id="legenda" readonly></textarea>
+  <p id="legenda"></p>
+</div>
+
+<div class="card">
+  <h2>🎥 Roteiro de Reels (Opção 6)</h2>
+  <ul id="roteiro"></ul>
 </div>
 
 <div class="card">
@@ -96,63 +106,50 @@ textarea {
 </div>
 
 <script>
-function img(q) {
-  document.getElementById("imagem").src =
-    "https://source.unsplash.com/800x600/?" + q + "&" + Math.random();
-}
+function gerar() {
 
-function r(a) {
-  return a[Math.floor(Math.random() * a.length)];
-}
-
-function gerarTudo() {
   const ideias = [
+    "Detalhe do acabamento do bolo em close",
     "Corte do bolo mostrando o recheio",
-    "Detalhe do acabamento em close",
-    "Antes e depois do bolo",
-    "Bastidores da produção",
-    "Cliente retirando o pedido"
+    "Antes e depois da decoração",
+    "Bastidores da produção artesanal"
   ];
 
-  const formatos = ["Reel", "Foto", "Story"];
-
-  const roteiros = {
-    Reel: "Corte lento destacando o recheio",
-    Foto: "Foto bem iluminada focando nos detalhes",
-    Story: "Bastidores + enquete interativa"
-  };
-
-  const ctas = [
-    "Qual sabor você escolheria? 🍰",
-    "Comenta se deu vontade 😍",
-    "Chama no direct pra encomendar",
-    "Salva esse post pra se inspirar",
-    "Marca alguém que ama doce"
+  const imagens = [
+    "https://images.unsplash.com/photo-1601979031925-424e53b6caaa?w=800",
+    "https://images.unsplash.com/photo-1542826438-bd32f43d626f?w=800",
+    "https://images.unsplash.com/photo-1603532648955-039310d9ed75?w=800"
   ];
 
-  const ideia = r(ideias);
-  const formato = r(formatos);
-  const cta = r(ctas);
+  const ideia = ideias[Math.floor(Math.random()*ideias.length)];
+  const imagem = imagens[Math.floor(Math.random()*imagens.length)];
 
   document.getElementById("ideia").innerText = ideia;
-  document.getElementById("formato").innerText = "Formato ideal: " + formato;
-  document.getElementById("roteiro").innerText = "Roteiro: " + roteiros[formato];
+  document.getElementById("imagem").src = imagem;
 
-  img("cake,confectionery");
+  document.getElementById("formato").innerText =
+    "Reel (mais alcance)";
 
-  document.getElementById("legenda").value =
+  document.getElementById("legenda").innerText =
 `✨ ${ideia}
 
-Aqui cada detalhe é feito com carinho e muito sabor 🤍🍰
+Feito com carinho, sabor e atenção a cada detalhe 🍰  
+Quem ama bolo artesanal vai entender 😍
 
-${cta}
+📲 Chama no direct para encomendas`;
 
-📲 Encomendas pelo direct`;
+  document.getElementById("roteiro").innerHTML = `
+    <li>🎬 Cena 1: Abertura rápida do bolo inteiro</li>
+    <li>🔪 Cena 2: Corte lento mostrando o recheio</li>
+    <li>✨ Cena 3: Close no acabamento</li>
+    <li>👉 Cena 4: Texto na tela “Encomendas no direct”</li>
+  `;
 
   document.getElementById("hashtags").innerText =
-"#confeitaria #bolosartesanais #doces #bolo #confeiteira #instabolo #bolodecorado";
+"#confeitaria #bolosartesanais #doces #instabolo #bolo";
 
-  document.getElementById("horario").innerText = "12h – 13h ou 19h – 21h";
+  document.getElementById("horario").innerText =
+"12h–13h ou 19h–21h";
 }
 </script>
 
